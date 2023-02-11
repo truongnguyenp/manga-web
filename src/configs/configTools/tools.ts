@@ -1,5 +1,3 @@
-import { PickerLocale } from "antd/es/date-picker/generatePicker";
-
 type GetPopupContainer = (node: HTMLElement | undefined, queries?: string[]) => HTMLElement;
 export var getPopupContainer: GetPopupContainer = function (node: any, queries: any) {
     if (queries === void 0) { queries = [".ant-modal", ".ant-drawer"]; }

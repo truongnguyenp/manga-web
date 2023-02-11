@@ -6,7 +6,7 @@ const useTypeSafeTranslation = () => {
   const { t } = useTranslation();
 
   return {
-    t: (s: TranslationKeys, f?: Dictionary<string>) => t(s, f as any)
+    t: (s: TranslationKeys, f?: Dictionary<string>) => t(s, f as any) as any
   };
 };
 
