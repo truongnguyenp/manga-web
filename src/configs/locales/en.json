@@ -106,9 +106,7 @@
     "view": "View",
     "filter": "Filter",
     "close": "Close",
-    "generateLink": "Generate link",
-    "copyLink": "Copy link",
-    "trackDriver": "Track Driver"
+    "copyLink": "Copy link"
   },
   "validateMessage": {
     "email": "Email is invalid",
@@ -126,31 +124,7 @@
     "disabledSelection": "This selection is disabled or removed",
     "items": "items"
   },
-  "section": {
-    "contacts": "Contacts",
-    "contactsDescription": "Find your dedicated contacts as well as answers to your questions",
-    "caseDetail": "Case Details",
-    "caseDetailDescription": "Import, view and sign the necessary documents",
-    "formalities": "Formalities",
-    "formalitiesDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tincidunt quam massa gravida ipsum, eget.",
-    "transportation": "Transportation",
-    "transportationDescription": "Follow step by step the progress of the transport of your loved one",
-    "funeralService": "Funeral Service",
-    "funeralServiceDescription": "Follow the organization of your loved one’s funeral step by step",
-    "prestations": "Prestations"
-  },
-  "contact": {
-    "nameFirstName": "Name and first name",
-    "familyDetail": "Family Details",
-    "funeralProvider": "Funeral Provider",
-    "companyName": "Company's name",
-    "website": "Website",
-    "empowermentNumber": "Empowerment's number",
-    "civilLiabilityInsurance": "Civil liability insurance",
-    "anubisAssistant": "Anubis Assistant",
-    "assistantName": "Assistant’s name",
-    "documents": "Documents"
-  },
+  "section": {},
   "rangePicker": {
     "closeMonthSelector": "Close Month Selector",
     "closeYearSelector": "Close Year Selector",

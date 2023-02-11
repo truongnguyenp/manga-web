@@ -25,7 +25,9 @@
       "@/assets/*": ["./src/assets/*"],
       "@/configs/*": ["./src/configs/*"],
       "@/shared/*": ["./src/shared/*"],
-      "@/api/*": ["./src/api/*"]
+      "@/api/*": ["./src/api/*"],
+      "@/utils/*": ["./src/shared/utils/*"],
+      "@/hooks/*": ["./src/shared/hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
