@@ -2,18 +2,17 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { cloneElement } from 'react';
 import styled from '@emotion/styled';
 import { Typography } from 'antd';
-import useTypeSafeTranslation from '#/shared/hooks/useTypeSafeTranslation';
-import type { Section } from '#/shared/utils/type';
-
+import { Section } from '@/shared/utils/type';
+import useTypeSafeTranslation from '@/shared/hooks/useTypeSafeTranslation';
 interface NavBarItemProps {
   section?: Section;
 }
 
 const Item = styled.div<{ active?: boolean }>`
-  color: ${props => (props.active ? '#ffffff !important' : '')};
+  color: ${(props) => (props.active ? '#ffffff !important' : '')};
 
   span {
-    color: ${props => (props.active ? '#ffffff !important' : '')};
+    color: ${(props) => (props.active ? '#ffffff !important' : '')};
   }
 `;
 
