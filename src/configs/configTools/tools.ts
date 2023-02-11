@@ -1,6 +1,4 @@
 import { PickerLocale } from "antd/es/date-picker/generatePicker";
-import { Locale } from "antd/es/locale";
-import enUS from 'antd/es/locale/en_US';
 
 type GetPopupContainer = (node: HTMLElement | undefined, queries?: string[]) => HTMLElement;
 export var getPopupContainer: GetPopupContainer = function (node: any, queries: any) {
@@ -9,14 +7,4 @@ export var getPopupContainer: GetPopupContainer = function (node: any, queries: 
     if (node && (parent === null || parent === void 0 ? void 0 : parent.contains(node)))
         return node === null || node === void 0 ? void 0 : node.parentNode;
     return document.body;
-};
-type GetConfigLocale = (language: string) => Locale;
-export const getConfigLocale: GetConfigLocale = (language: string) => {
-    switch (language) {
-        case 'en': {
-            return enUS;
-        }
-        default:
-            return enUS;
-    }
 };
