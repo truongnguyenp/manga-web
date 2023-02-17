@@ -5,8 +5,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#7569E1",
-        secondary: "#E3BD49",
+        primary: "#E3BD49",
         accent: "#FFF7F8",
         neutral: "#1E2036",
         "base-100": "#070519",
@@ -85,16 +84,9 @@ module.exports = {
         },
       },
       screens: {
-        '2xl': { max: '1600px' },
-        quiz: { max: '1440px' },
-        xl: { max: '1200px' },
-        xlg: { max: '1150px' },
-        lg: { max: '992px' },
-        xmd: { max: '960px' },
-        md: { max: '768px' },
-        sm: { max: '576px' },
-        ss: { max: '480px' },
-        xs: { max: '375px' },
+        'tablet': '640px',
+        'laptop': '1024px',
+        'desktop': '1280px',
       },
     },
   },

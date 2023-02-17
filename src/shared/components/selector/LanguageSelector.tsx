@@ -32,7 +32,7 @@ export default function LanguageSelector({ ...rest }: SelectProps) {
           <Typography.Text>{t('appInfo.footer')}</Typography.Text>
         </div>
       ),
-      value: Languages.EN,
+      value: Languages.VI,
     },
   ];
 

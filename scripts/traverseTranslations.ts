@@ -1,4 +1,4 @@
-import translations from '../src/configs/locales/en.json';
+import translations from '../src/configs/locales/vi.json';
 
 const keys: string[] = [];
 

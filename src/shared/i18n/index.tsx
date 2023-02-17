@@ -8,11 +8,10 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'fr',
+    fallbackLng: 'vi',
     interpolation: {
       escapeValue: false,
     },
-    lng: localStorage.getItem('locale') || 'fr',
     resources: {
       en: {
         translation: enLocale,

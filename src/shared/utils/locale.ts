@@ -8,5 +8,5 @@ export const clearLocale = () => localStorage.removeItem(LOCALE_KEY);
 
 export const getLocale = () => localStorage.getItem(LOCALE_KEY) ?? 'en';
 export enum Languages {
-    EN = 'en',
+    VI = 'vi',
 }

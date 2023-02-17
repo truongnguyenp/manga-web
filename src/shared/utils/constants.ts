@@ -12,11 +12,3 @@ export const PATH_URL = {
 export enum SectionId {
     Home = 'Home',
 }
-export const sections: Section[] = [
-    {
-        description: 'section.caseDetail',
-        title: 'section.caseDetail',
-        to: `/section/${SectionId.Home}`,
-    },
-
-];

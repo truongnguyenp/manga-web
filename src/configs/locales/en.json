@@ -15,7 +15,9 @@
     "description": "For providers of Manga web"
   },
   "header": {
-    "description": "For service provider"
+    "categories": "Thể loại",
+    "newest": "Mới nhất",
+    "chart": "Bảng xếp hạng"
   },
   "quotes": "Let’s give our customers the best experience !",
   "country": {
@@ -90,23 +92,21 @@
     "requestTimeOut": "Request time out"
   },
   "button": {
-    "signIn": "Sign In",
-    "logout": "Logout",
-    "backHome": "Back Home",
-    "signUp": "Sign Up",
-    "submit": "Submit",
-    "forgotPassword": "Forgot Password?",
-    "save": "Save",
-    "create": "Create",
-    "search": "Search",
-    "clear": "Clear",
-    "cancel": "Cancel",
-    "loginNow": "Login Now",
-    "edit": "Edit",
-    "view": "View",
-    "filter": "Filter",
-    "close": "Close",
-    "copyLink": "Copy link"
+    "signIn": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "backHome": "Về trang chủ",
+    "signUp": "Đăng ký",
+    "submit": " Xác nhận",
+    "forgotPassword": "Quên mật khẩu?",
+    "save": "Lưu",
+    "create": "Tạo",
+    "search": "Tên truyện, comic",
+    "clear": "Xoá",
+    "cancel": "Huỷ",
+    "edit": "Sửa",
+    "view": "Xem",
+    "filter": "Lọc",
+    "close": "Đóng"
   },
   "validateMessage": {
     "email": "Email is invalid",

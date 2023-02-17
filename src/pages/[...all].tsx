@@ -1,28 +1,32 @@
 import useTypeSafeTranslation from '@/shared/hooks/useTypeSafeTranslation';
-import Layout from '@/shared/layouts/Layout';
 import { Button, Result, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 function NotFoundPage() {
   const { t } = useTypeSafeTranslation();
+  const { replace } = useRouter();
 
   return (
-    <Layout>
+    <div>
       <Result
         extra={
-          <Link to="/">
-            <Button type="primary">{t('button.backHome')}</Button>
-          </Link>
+          <Button
+            type="primary"
+            className="bg-black"
+            onClick={() => replace('/')}
+          >
+            {t('button.backHome')}
+          </Button>
         }
         status="404"
         subTitle={t('empty')}
         title={
-          <Typography.Title className="text-[white]" level={1}>
+          <Typography.Title className="" level={1}>
             404
           </Typography.Title>
         }
       />
-    </Layout>
+    </div>
   );
 }
 
