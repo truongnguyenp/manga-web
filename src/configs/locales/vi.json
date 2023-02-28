@@ -1,8 +1,8 @@
 {
   "appInfo": {
     "footer": "",
-    "name": "Manga site",
-    "welcomeTitle": "Welcome to Manga site"
+    "name": "Comic site",
+    "welcomeTitle": "Welcome to Comic site"
   },
   "empty": "404 Not Found",
   "noData": "No data",
@@ -10,14 +10,35 @@
     "dashboard": "Dashboard",
     "logout": "Logout"
   },
-  "signIn": {
-    "title": "Manga web",
-    "description": "For providers of Manga web"
+  "login": {
+    "title": "Comic web",
+    "description": "For Comic fans",
+    "notHavingAccount": "Chưa có tài khoản?"
+  },
+  "register": {
+    "havingAccount": "Đã có tài khoản?",
+    "description": "For manga fans"
   },
   "header": {
     "categories": "Thể loại",
     "newest": "Mới nhất",
     "chart": "Bảng xếp hạng"
+  },
+  "comic": {
+    "chapters": "chương",
+    "readNow": "Đọc ngay",
+    "latestChapter": "Tập mới nhất",
+    "myList": "Yêu thích",
+    "author": "Tác giả",
+    "rated": "Lứa tuối",
+    "genres": "Thể loại",
+    "description": "Mô tả",
+    "chapter": "Chương",
+    "seeFull": "Xem đầy đủ",
+    "seeLess": "Thu gọn",
+    "comment": "Bình luận",
+    "likes": "likes",
+    "views": "views"
   },
   "quotes": "Let’s give our customers the best experience !",
   "country": {
@@ -44,7 +65,8 @@
     "typeMessage": "Type message",
     "searchMessage": "Search message",
     "startDate": "Start Date",
-    "endDate": "End Date"
+    "endDate": "End Date",
+    "searchComic": "Tên truyện, comic"
   },
   "commonFields": {
     "email": "Email",
@@ -66,17 +88,14 @@
     "dateOfBirth": "Date of birth",
     "address": "Address",
     "fullName": "Full name",
-    "whatsapp": "Whatsapp",
     "dateAndTime": "Date and time",
-    "departure": "Departure",
-    "arrival": "Arrival",
-    "dateOfDeath": "Date of death",
     "seeMore": "See more",
     "seeLess": "See less"
   },
   "message": {
-    "successfully": "Successfully",
-    "loginSuccess": "Login successfully"
+    "successfully": "Thành công",
+    "loginSuccess": "Đăng nhập thành công",
+    "registerSuccess": "Đăng ký thành công"
   },
   "error": {
     "pleaseTryAgain": "Please try again later!",
@@ -92,10 +111,10 @@
     "requestTimeOut": "Request time out"
   },
   "button": {
-    "signIn": "Đăng nhập",
+    "login": "Đăng nhập",
     "logout": "Đăng xuất",
     "backHome": "Về trang chủ",
-    "signUp": "Đăng ký",
+    "register": "Đăng ký",
     "submit": " Xác nhận",
     "forgotPassword": "Quên mật khẩu?",
     "save": "Lưu",

@@ -1,14 +1,11 @@
 import { Section } from "./type";
 
 export const PATH_URL = {
-    contact: 'section/contacts',
-    formalities: '/section/formalities',
-    funeralService: '/section/funeral-service',
+    contact: 'section/',
     home: '/',
-    prestations: '/section/prestations',
-    signIn: '/sign-in',
-    transportation: '/section/transportation',
+    login: '/login',
 };
 export enum SectionId {
     Home = 'Home',
 }
+export const DEFAULT_LANG = "vi";

@@ -13,6 +13,7 @@ module.exports = {
         success: "#6FCF97",
         warning: "#EDD68D",
         error: "#EB5757",
+        "black-light": "#1f1f1f",
         'grey-primary': '#F7F8F9',
         'grey-primary-200': '#f0f2f4',
         'grey-primary-300': '#7A7A9D',
@@ -32,6 +33,9 @@ module.exports = {
         'grey-light-900': '#250e18',
         'grey-dark': '#dfe1e7',
         'grey-heavy': '#45445f',
+        "black": "#242424",
+        "black-light": "#2b2942",
+        "dark-bg": "#141414",
         red: {
           100: '#FCD9DF',
         },
@@ -85,7 +89,7 @@ module.exports = {
       },
       screens: {
         'tablet': '640px',
-        'laptop': '1024px',
+        'laptop': '992px',
         'desktop': '1280px',
       },
     },

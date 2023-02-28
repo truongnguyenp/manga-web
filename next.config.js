@@ -5,8 +5,21 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
+const withLess = require("next-with-less");
 
-module.exports = {
+
+module.exports = withLess({
+  compiler: {
+    styledComponents: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -14,6 +27,6 @@ module.exports = {
       use: ['@svgr/webpack'],
     })
 
-    return config
+    return config;
   },
-};
+});
