@@ -24,12 +24,11 @@ interface HeaderProps {
 }
 
 export default function Header({ isAuthenticated = false }: HeaderProps) {
-  const { replace } = useRouter();
+  const { replace, push } = useRouter();
   const { t } = useTypeSafeTranslation();
-  const { i18n } = useTranslation();
   const onLogout = () => {
     clearToken();
-    replace('/');
+    push('/');
   };
   const PROFILE_ITEMS: MenuProps['items'] = [
     {
