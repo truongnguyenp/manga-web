@@ -22,7 +22,7 @@ function Register() {
     onError: showError,
     onSuccess({ data }) {
       console.log(data?.token);
-      replace('/');
+      replace('/login');
       showSuccess(t('message.registerSuccess'));
     },
   });
@@ -133,7 +133,7 @@ function Register() {
             ]}
           >
             <Input
-              placeholder={t('placeholder.enterLastNameDecreased')}
+              placeholder={t('placeholder.enterUsername')}
               type="password"
               className="text-dark-title"
             />

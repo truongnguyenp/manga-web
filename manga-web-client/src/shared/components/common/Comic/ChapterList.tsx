@@ -1,4 +1,4 @@
-import { Row, Tabs, TabsProps, Typography } from 'antd';
+import { Tabs, TabsProps, Typography } from 'antd';
 import useTypeSafeTranslation from '@/hooks/useTypeSafeTranslation';
 import styled from '@emotion/styled';
 import Chapter from '@/components/common/Comic/Chapter';
@@ -45,11 +45,7 @@ function ChapterList({ data }: IChapterListProps) {
       children: <p>Content of Tab Pane 2</p>,
     },
   ];
-  return (
-    <Row>
-      <StyledTabs defaultActiveKey="1" items={items} />;
-    </Row>
-  );
+  return <StyledTabs defaultActiveKey="1" items={items} />;
 }
 
 export default ChapterList;

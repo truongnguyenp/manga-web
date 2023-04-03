@@ -27,6 +27,7 @@
   "comic": {
     "chapters": "chương",
     "readNow": "Đọc ngay",
+    "readContinue": "Đọc tiếp",
     "latestChapter": "Tập mới nhất",
     "myList": "Yêu thích",
     "author": "Tác giả",
@@ -39,6 +40,9 @@
     "comment": "Bình luận",
     "likes": "likes",
     "views": "views"
+  },
+  "chapter": {
+    "noLink": "Chapter này chưa có link, vui lòng liên hệ với tác giả"
   },
   "quotes": "Let’s give our customers the best experience !",
   "country": {

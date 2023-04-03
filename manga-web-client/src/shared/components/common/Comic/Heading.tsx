@@ -4,12 +4,14 @@ import { EyeFilled, LikeFilled, SwitcherFilled } from '@ant-design/icons';
 import { Button, Col, Row, Typography } from 'antd';
 import Image from 'next/image';
 import { truncateText } from '@/utils/tool';
-
-interface IHeadingProps {
-  data?: any;
+import { ComicHeading } from '@/shared/utils/type';
+import useRouter from 'next/router';
+interface HeadingProps {
+  data: ComicHeading;
 }
-function Heading({ data }: IHeadingProps) {
+function Heading({ data }: HeadingProps) {
   const { t } = useTypeSafeTranslation();
+  const { replace } = useRouter;
   const [isShowDescFull, toggleShowDesc, _setShowDesc] = useToggle(false);
   return (
     <Row className="text-center gap-y-6 flex-col laptop:flex-row laptop:px-10 laptop:text-left py-10">
@@ -64,13 +66,18 @@ function Heading({ data }: IHeadingProps) {
             </span>
           </span>
         </Row>
-        <Row className="justify-center gap-x-5 laptop:justify-start text-white font-bold">
-          <Button className="btn-primary">{t('comic.readNow')}</Button>
+        {/* <Row className="justify-center gap-x-5 laptop:justify-start text-white font-bold">
+          <Button
+            className="btn-primary"
+            onClick={() => data.recentRead && replace(data.recentRead)}
+          >
+            {data.recentRead ? t('comic.readContinue') : t('comic.readNow')}
+          </Button>
           <Button className="btn-primary_transparent">
             {t('comic.latestChapter')}
           </Button>
           <Button className="btn-accent">{t('comic.myList')}</Button>
-        </Row>
+        </Row> */}
         <div className="flex-col flex mx-8 gap-y-3 laptop:mx-0">
           <Row className="gap-x-1">
             <Typography.Text>{`${t('comic.author')}:`}</Typography.Text>
@@ -85,11 +92,11 @@ function Heading({ data }: IHeadingProps) {
             <Typography.Text>{data.rated}</Typography.Text>
           </Row>
           <Row className="gap-x-1 whitespace-normal text-left">
-            <Typography.Text className="">{`${t('comic.description')}: ${
+            {/* <Typography.Text className="">{`${t('comic.description')}: ${
               isShowDescFull
                 ? data.description
                 : truncateText(data.description, 600)
-            }`}</Typography.Text>
+            }`}</Typography.Text> */}
             <span
               onClick={() => {
                 toggleShowDesc?.();

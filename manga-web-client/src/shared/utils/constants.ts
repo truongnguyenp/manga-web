@@ -1,4 +1,3 @@
-import { Section } from "./type";
 
 export const PATH_URL = {
     contact: 'section/',

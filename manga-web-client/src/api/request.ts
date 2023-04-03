@@ -6,7 +6,7 @@ import { ErrorCode } from '@/shared/utils/type';
 const TIME_OUT = 60000;
 
 const baseApiConfig = {
-  baseURL: 'http://localhost:5000/api',
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
     ['content-type']: 'application/json',
     ['accept']: 'application/json',

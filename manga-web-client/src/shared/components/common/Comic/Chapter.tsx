@@ -1,14 +1,25 @@
 import { Col, Row, Typography } from 'antd';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { twMerge } from 'tailwind-merge';
+import { showError } from './../../../../configs/configTools/notification';
+
+import useTypeSafeTranslation from '@/shared/hooks/useTypeSafeTranslation';
 interface ITableProps {
   data?: any;
   className?: string;
 }
 function Chapter({ data, className }: ITableProps) {
   console.log(data);
+  const { t } = useTypeSafeTranslation();
+  const { replace } = useRouter();
   return (
-    <Row className={twMerge('items-center flex-1 content-center', className)}>
+    <Row
+      onClick={() =>
+        data.link ? replace(data.link) : showError(t('chapter.noLink'))
+      }
+      className={twMerge('items-center flex-1 content-center', className)}
+    >
       <Image
         className="rounded-xl object-fit w-32 h-32"
         alt={data.title}
