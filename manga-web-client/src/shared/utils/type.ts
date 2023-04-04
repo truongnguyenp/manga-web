@@ -24,7 +24,6 @@ export interface Chapter {
     link: string;
 }
 export interface ComicHeading {
-    recentRead: string;
     title: string;
     image: string;
     viewerCount: number;
@@ -38,4 +37,6 @@ export interface ComicHeading {
 export interface Comic {
     heading: ComicHeading;
     chapters: Chapter[];
+    recentRead: number;
+
 }

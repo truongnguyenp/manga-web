@@ -5,8 +5,8 @@ import ChapterList from '@/shared/components/common/Comic/ChapterList';
 import { Comic } from '@/shared/utils/type';
 function Comic() {
   const data: Comic = {
+    recentRead: 1,
     heading: {
-      recentRead: 'https://google.com',
       title: 'Đồ án của Trường',
       image:
         'https://vnw-img-cdn.popsww.com/api/v2/containers/file2/cms_thumbnails/tgctvc_thumb_640x960-772c4751a41d-1669704605211-KmcIfsor.jpg?v=0&maxW=420&format=jpg',
@@ -52,7 +52,13 @@ function Comic() {
   };
   return (
     <>
-      <Heading data={data.heading} />
+      <Heading
+        data={{
+          ...data.heading,
+          recentRead: data.chapters[data.recentRead],
+          newestChapter: data.chapters[data.chapters.length - 1],
+        }}
+      />
       <ChapterList data={data.chapters} />
     </>
   );

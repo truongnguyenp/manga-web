@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import useTypeSafeTranslation from '@/hooks/useTypeSafeTranslation';
@@ -19,6 +18,7 @@ import {
 import AvatarOutlinedSVG from '@/assets/svgs/avatar-outlined.svg';
 import styled from '@emotion/styled';
 import { clearToken, getToken } from '@/utils/localStorage';
+import useScrollDirection from '@/hooks/useScrollDirection';
 interface HeaderProps {
   isAuthenticated?: boolean;
 }
@@ -31,6 +31,7 @@ export default function Header({ isAuthenticated = false }: HeaderProps) {
     console.log(getToken());
     push('/login');
   };
+
   const PROFILE_ITEMS: MenuProps['items'] = [
     {
       key: '1',

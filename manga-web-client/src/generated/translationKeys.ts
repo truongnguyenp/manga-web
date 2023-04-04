@@ -81,6 +81,7 @@ export type TranslationKeys =
   | 'message.successfully'
   | 'message.loginSuccess'
   | 'message.registerSuccess'
+  | 'message.addedToList'
   | 'error.pleaseTryAgain'
   | 'error.notAvailable'
   | 'error.inValidAccLogin'

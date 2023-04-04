@@ -8,7 +8,7 @@ interface SectionProps {
   d?: any;
 }
 
-export default function Section({ d }: SectionProps) {
+export default function Section({}: SectionProps) {
   const { Title } = Typography;
   const data = {
     title: 'Title',

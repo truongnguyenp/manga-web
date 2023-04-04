@@ -6,7 +6,6 @@ import Head from 'next/head';
 import { appConfig } from '@/configs/config';
 import { getToken } from '@/utils/localStorage';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 interface LayoutProps {
   children?: React.ReactNode;
 }

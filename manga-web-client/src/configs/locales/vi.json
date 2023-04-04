@@ -100,7 +100,8 @@
   "message": {
     "successfully": "Thành công",
     "loginSuccess": "Đăng nhập thành công",
-    "registerSuccess": "Đăng ký thành công"
+    "registerSuccess": "Đăng ký thành công",
+    "addedToList": "Đã thêm vào danh sách yêu thích"
   },
   "error": {
     "pleaseTryAgain": "Please try again later!",

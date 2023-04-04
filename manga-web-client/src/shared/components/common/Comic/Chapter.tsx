@@ -10,7 +10,6 @@ interface ITableProps {
   className?: string;
 }
 function Chapter({ data, className }: ITableProps) {
-  console.log(data);
   const { t } = useTypeSafeTranslation();
   const { replace } = useRouter();
   return (

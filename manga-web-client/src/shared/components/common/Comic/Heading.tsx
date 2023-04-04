@@ -4,10 +4,11 @@ import { EyeFilled, LikeFilled, SwitcherFilled } from '@ant-design/icons';
 import { Button, Col, Row, Typography } from 'antd';
 import Image from 'next/image';
 import { truncateText } from '@/utils/tool';
-import { ComicHeading } from '@/shared/utils/type';
+import { Chapter, ComicHeading } from '@/shared/utils/type';
 import useRouter from 'next/router';
+import { showSuccess } from '@/configs/configTools/notification';
 interface HeadingProps {
-  data: ComicHeading;
+  data: ComicHeading & { newestChapter: Chapter } & { recentRead: Chapter };
 }
 function Heading({ data }: HeadingProps) {
   const { t } = useTypeSafeTranslation();
@@ -66,18 +67,28 @@ function Heading({ data }: HeadingProps) {
             </span>
           </span>
         </Row>
-        {/* <Row className="justify-center gap-x-5 laptop:justify-start text-white font-bold">
+        <Row className="justify-center gap-x-5 laptop:justify-start text-white font-bold">
           <Button
             className="btn-primary"
-            onClick={() => data.recentRead && replace(data.recentRead)}
+            onClick={() =>
+              data.recentRead.link && replace(data.recentRead.link)
+            }
           >
             {data.recentRead ? t('comic.readContinue') : t('comic.readNow')}
           </Button>
-          <Button className="btn-primary_transparent">
+          <Button
+            className="btn-primary_transparent"
+            onClick={() => replace(data.newestChapter.link)}
+          >
             {t('comic.latestChapter')}
           </Button>
-          <Button className="btn-accent">{t('comic.myList')}</Button>
-        </Row> */}
+          <Button
+            className="btn-accent"
+            onClick={() => showSuccess(t('message.addedToList'))}
+          >
+            {t('comic.myList')}
+          </Button>
+        </Row>
         <div className="flex-col flex mx-8 gap-y-3 laptop:mx-0">
           <Row className="gap-x-1">
             <Typography.Text>{`${t('comic.author')}:`}</Typography.Text>
@@ -92,11 +103,11 @@ function Heading({ data }: HeadingProps) {
             <Typography.Text>{data.rated}</Typography.Text>
           </Row>
           <Row className="gap-x-1 whitespace-normal text-left">
-            {/* <Typography.Text className="">{`${t('comic.description')}: ${
+            <Typography.Text className="">{`${t('comic.description')}: ${
               isShowDescFull
                 ? data.description
                 : truncateText(data.description, 600)
-            }`}</Typography.Text> */}
+            }`}</Typography.Text>
             <span
               onClick={() => {
                 toggleShowDesc?.();
