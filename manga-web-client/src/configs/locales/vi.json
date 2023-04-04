@@ -131,7 +131,8 @@
     "edit": "Sửa",
     "view": "Xem",
     "filter": "Lọc",
-    "close": "Đóng"
+    "close": "Đóng",
+    "profile": "Hồ sơ"
   },
   "validateMessage": {
     "email": "Email is invalid",

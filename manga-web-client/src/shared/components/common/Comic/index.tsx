@@ -21,32 +21,28 @@ function Comic() {
     },
     chapters: [
       {
+        chapterId: '1',
         chapterNumber: 1,
         title: 'FE',
         dateUpdated: '1/10/2023',
         price: 'FREE',
-        link: 'https://google.com',
+        link: 'https://pops-comic-vn.akamaized.net/api/v2/containers/file4/cms_comic/6385abc1e00350005a48f6d4/6385b08be00350005a48f6d8/CHAP1__1__1675675890340-parts-00.jpg?format=webp',
       },
       {
+        chapterId: '1',
         chapterNumber: 1,
         title: 'FE',
         dateUpdated: '1/10/2023',
         price: 'FREE',
-        link: 'https://google.com',
+        link: 'https://pops-comic-vn.akamaized.net/api/v2/containers/file4/cms_comic/6385abc1e00350005a48f6d4/6385b08be00350005a48f6d8/CHAP1__1__1675675890340-parts-00.jpg?format=webp',
       },
       {
+        chapterId: '1',
         chapterNumber: 1,
         title: 'FE',
         dateUpdated: '1/10/2023',
         price: 'FREE',
-        link: 'https://google.com',
-      },
-      {
-        chapterNumber: 1,
-        title: 'FE',
-        dateUpdated: '1/10/2023',
-        price: 'FREE',
-        link: 'https://google.com',
+        link: 'https://pops-comic-vn.akamaized.net/api/v2/containers/file4/cms_comic/6385abc1e00350005a48f6d4/6385b08be00350005a48f6d8/CHAP1__1__1675675890340-parts-00.jpg?format=webp',
       },
     ],
   };

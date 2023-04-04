@@ -1,6 +1,6 @@
 import Comic from '@/shared/components/common/Comic';
 import Layout from '@/shared/layouts/Layout';
-function C() {
+function Index() {
   return (
     <Layout>
       <Comic />
@@ -8,4 +8,4 @@ function C() {
   );
 }
 
-export default C;
+export default Index;

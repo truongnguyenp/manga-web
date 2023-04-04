@@ -11,11 +11,14 @@ interface ITableProps {
 }
 function Chapter({ data, className }: ITableProps) {
   const { t } = useTypeSafeTranslation();
-  const { replace } = useRouter();
+  const router = useRouter();
+  const { comicId } = router.query;
   return (
     <Row
       onClick={() =>
-        data.link ? replace(data.link) : showError(t('chapter.noLink'))
+        data.link
+          ? router.push(`${comicId}/view/${data.chapterId}`)
+          : showError(t('chapter.noLink'))
       }
       className={twMerge('items-center flex-1 content-center', className)}
     >

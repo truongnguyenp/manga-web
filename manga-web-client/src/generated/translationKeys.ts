@@ -108,6 +108,7 @@ export type TranslationKeys =
   | 'button.view'
   | 'button.filter'
   | 'button.close'
+  | 'button.profile'
   | 'validateMessage.email'
   | 'validateMessage.required'
   | 'validateMessage.invalid'

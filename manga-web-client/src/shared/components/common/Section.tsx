@@ -17,127 +17,106 @@ export default function Section({}: SectionProps) {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'BE',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'BE',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'BE',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'BE',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'FE',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'FE',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'FE',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
       {
         title: 'AWS',
         image: 'https://picsum.photos/200/300',
         id: 'v',
-        path: '/chapter',
       },
     ],
   };
@@ -171,7 +150,7 @@ export default function Section({}: SectionProps) {
         {items?.map((item) => {
           return (
             <Card
-              data={item}
+              data={{ ...item, path: `comic/${item.id}` }}
               key={item.id}
               className="laptop:basis-1/6 w-[30%] laptop:w-auto"
             ></Card>

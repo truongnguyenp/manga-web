@@ -18,23 +18,34 @@ import {
 import AvatarOutlinedSVG from '@/assets/svgs/avatar-outlined.svg';
 import styled from '@emotion/styled';
 import { clearToken, getToken } from '@/utils/localStorage';
-import useScrollDirection from '@/hooks/useScrollDirection';
+import { twMerge } from 'tailwind-merge';
 interface HeaderProps {
   isAuthenticated?: boolean;
+  hiddenOnScroll?: boolean;
 }
 
 export default function Header({ isAuthenticated = false }: HeaderProps) {
   const { replace, push } = useRouter();
   const { t } = useTypeSafeTranslation();
+
   const onLogout = () => {
     clearToken();
-    console.log(getToken());
     push('/login');
   };
-
+  const onOpenProfile = () => {
+    push('/profile');
+  };
   const PROFILE_ITEMS: MenuProps['items'] = [
     {
       key: '1',
+      label: (
+        <a onClick={onOpenProfile} className="text-dark-title">
+          {t('button.profile')}
+        </a>
+      ),
+    },
+    {
+      key: '2',
       label: (
         <a onClick={onLogout} className="text-dark-title">
           {t('button.logout')}
@@ -66,7 +77,7 @@ export default function Header({ isAuthenticated = false }: HeaderProps) {
     }
   `;
   return (
-    <StyledDiv className="w-full bg-black-light text-white">
+    <StyledDiv className={twMerge('w-full bg-black-light text-white')}>
       <div className="mx-auto flex max-w-container items-center justify-between py-2.5 laptop:px-8 flex-wrap">
         <Link className="pl-4 font-medium text-primary text-4xl" href="/">
           {t('appInfo.name')}

@@ -18,6 +18,7 @@ export enum ErrorCode {
 }
 export interface Chapter {
     title: string;
+    chapterId: string;
     chapterNumber: number;
     dateUpdated: string;
     price: string;

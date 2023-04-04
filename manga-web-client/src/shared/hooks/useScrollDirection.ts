@@ -1,36 +1,39 @@
 import { useEffect, useState } from "react";
 
 export default function useScrollDirection() {
-  const [isHidden, setIsHidden] = useState(false);
+  const isBrowser = typeof window !== "undefined";
+
+  // storing this to get the scroll direction
+  const [lastScrollTop, setLastScrollTop] = useState(0);
+  // the offset of the document.body
+  const [bodyOffset, setBodyOffset] = useState(
+    isBrowser ? document.body.getBoundingClientRect() : { top: 0, left: 0 }
+  );
+  // the vertical direction
+  const [scrollY, setScrollY] = useState<number>(bodyOffset.top);
+  // the horizontal direction
+  const [scrollX, setScrollX] = useState<number>(bodyOffset.left);
+  // scroll direction would be either up or down
+  const [scrollDirection, setScrollDirection] = useState<'down' | 'up'>();
+
+  const listener = (_e: Event) => {
+    isBrowser && setBodyOffset(document.body.getBoundingClientRect());
+    setScrollY(-bodyOffset.top);
+    setScrollX(bodyOffset.left);
+    setScrollDirection(lastScrollTop > -bodyOffset.top ? "down" : "up");
+    setLastScrollTop(-bodyOffset.top);
+  };
 
   useEffect(() => {
-    // store the last scrolled Y to detect how fast users scroll pages
-    let lastScrollY = window.pageYOffset
-
-    const updateScrollDirection = () => {
-      const scrollY = window.pageYOffset
-      const goingDown = scrollY > lastScrollY
-      const diff = 4
-      // There are two cases that the header might want to change the state:
-      // - when scrolling up but the header is hidden
-      // - when scrolling down but the header is shown
-      // stateNotMatched variable decides when to try changing the state
-      const stateNotMatched = goingDown !== isHidden
-      const scrollDownTooFast = scrollY - lastScrollY > diff
-      const scrollUpTooFast = scrollY - lastScrollY < - diff
-
-      const shouldToggleHeader = stateNotMatched && (scrollDownTooFast || scrollUpTooFast)
-      if (shouldToggleHeader) {
-        setIsHidden(goingDown)
-      }
-      lastScrollY = scrollY > 0 ? scrollY : 0
-    };
-
-    window.addEventListener("scroll ", updateScrollDirection)
+    window.addEventListener("scroll", listener);
     return () => {
-      window.removeEventListener("scroll", updateScrollDirection)
-    }
-  }, [isHidden]);
+      window.removeEventListener("scroll", listener);
+    };
+  });
 
-  return isHidden;
+  return {
+    scrollY,
+    scrollX,
+    scrollDirection
+  };
 }
