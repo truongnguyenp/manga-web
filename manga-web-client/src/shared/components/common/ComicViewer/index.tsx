@@ -19,7 +19,11 @@ const comicPages = [
 ];
 
 export default function ComicViewer() {
-  return comicPages.map((page) => (
-    <LazyLoadImage src={page.original} key={page.key} />
-  ));
+  return (
+    <div>
+      {comicPages.map((page) => (
+        <LazyLoadImage src={page.original} key={page.key} />
+      ))}
+    </div>
+  );
 }
