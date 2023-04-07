@@ -3,7 +3,7 @@ import useToggle from '@/shared/hooks/useToggle';
 import { EyeFilled, LikeFilled, SwitcherFilled } from '@ant-design/icons';
 import { Button, Col, Row, Typography } from 'antd';
 import Image from 'next/image';
-import { truncateText } from '@/utils/tool';
+import { getChapterComicRoute, truncateText } from '@/utils/tool';
 import { Chapter, ComicHeading } from '@/shared/utils/type';
 import useRouter from 'next/router';
 import { showSuccess } from '@/configs/configTools/notification';
@@ -12,8 +12,9 @@ interface HeadingProps {
 }
 function Heading({ data }: HeadingProps) {
   const { t } = useTypeSafeTranslation();
-  const { replace } = useRouter;
+  const router = useRouter;
   const [isShowDescFull, toggleShowDesc, _setShowDesc] = useToggle(false);
+  const { comicId } = router.query;
   return (
     <Row className="text-center gap-y-6 flex-col laptop:flex-row laptop:px-10 laptop:text-left py-10">
       <Col className="" span={24} lg={6}>
@@ -71,14 +72,22 @@ function Heading({ data }: HeadingProps) {
           <Button
             className="btn-primary"
             onClick={() =>
-              data.recentRead.link && replace(data.recentRead.link)
+              data.recentRead &&
+              router.push(
+                getChapterComicRoute(comicId, data.recentRead.chapterId)
+              )
             }
           >
             {data.recentRead ? t('comic.readContinue') : t('comic.readNow')}
           </Button>
           <Button
             className="btn-primary_transparent"
-            onClick={() => replace(data.newestChapter.link)}
+            onClick={() =>
+              data.recentRead &&
+              router.push(
+                getChapterComicRoute(comicId, data.newestChapter.chapterId)
+              )
+            }
           >
             {t('comic.latestChapter')}
           </Button>

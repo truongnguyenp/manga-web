@@ -17,37 +17,31 @@ import {
 } from '@ant-design/icons';
 import AvatarOutlinedSVG from '@/assets/svgs/avatar-outlined.svg';
 import styled from '@emotion/styled';
-import { clearToken, getToken } from '@/utils/localStorage';
 import { twMerge } from 'tailwind-merge';
+import { useLogout } from '../hooks/useLogout';
 interface HeaderProps {
   isAuthenticated?: boolean;
   hiddenOnScroll?: boolean;
 }
 
 export default function Header({ isAuthenticated = false }: HeaderProps) {
-  const { replace, push } = useRouter();
+  const { push } = useRouter();
   const { t } = useTypeSafeTranslation();
+  const { logout } = useLogout();
 
-  const onLogout = () => {
-    clearToken();
-    push('/login');
-  };
-  const onOpenProfile = () => {
-    push('/profile');
-  };
   const PROFILE_ITEMS: MenuProps['items'] = [
     {
       key: '1',
       label: (
-        <a onClick={onOpenProfile} className="text-dark-title">
+        <Link href="/profile" className="text-dark-title">
           {t('button.profile')}
-        </a>
+        </Link>
       ),
     },
     {
       key: '2',
       label: (
-        <a onClick={onLogout} className="text-dark-title">
+        <a onClick={logout} className="text-dark-title">
           {t('button.logout')}
         </a>
       ),
@@ -123,15 +117,12 @@ export default function Header({ isAuthenticated = false }: HeaderProps) {
           />
           {!isAuthenticated && (
             <>
-              <Button
-                className="text-primary"
-                onClick={() => replace('/login')}
-              >
+              <Button className="text-primary" onClick={() => push('/login')}>
                 {t('button.login')}
               </Button>
               <Button
                 className="text-primary"
-                onClick={() => replace('/register')}
+                onClick={() => push('/register')}
               >
                 {t('button.register')}
               </Button>
