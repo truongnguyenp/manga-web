@@ -5,7 +5,6 @@ import { AppProps } from 'next/app';
 import { Suspense, useState } from 'react';
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import '@/configs/theme/index.less';
 import i18n from '@/shared/i18n/index';
 export default function App({ Component, pageProps }: AppProps) {

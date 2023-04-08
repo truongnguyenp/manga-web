@@ -125,7 +125,6 @@ function Heading({ data }: HeadingProps) {
             <span
               onClick={() => {
                 toggleShowDesc?.();
-                console.log(isShowDescFull);
               }}
             >
               <Typography.Text className="text-gray-500 pointer underline">

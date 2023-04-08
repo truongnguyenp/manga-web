@@ -22,7 +22,6 @@ function Login() {
     onError: showError,
     onSuccess({ data }) {
       setToken(data?.token);
-      console.log(data?.token);
       replace('/');
       showSuccess(t('message.loginSuccess'));
     },

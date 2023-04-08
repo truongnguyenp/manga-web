@@ -20,8 +20,7 @@ function Register() {
 
   const { mutate: Register, isLoading } = useMutation(registerApi, {
     onError: showError,
-    onSuccess({ data }) {
-      console.log(data?.token);
+    onSuccess() {
       replace('/login');
       showSuccess(t('message.registerSuccess'));
     },
