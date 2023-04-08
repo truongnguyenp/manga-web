@@ -6,7 +6,6 @@ import Head from 'next/head';
 import { appConfig } from '@/configs/config';
 import { getToken } from '@/utils/localStorage';
 import { useState } from 'react';
-import useScrollDirection from '../hooks/useScrollDirection';
 interface LayoutProps {
   children?: React.ReactNode;
 }
@@ -17,12 +16,9 @@ export default function Layout({ children }: LayoutProps) {
     const token = getToken();
     setIsAuthenticated(!!token);
   }, []);
-  console.log(isAuthenticated);
   useEffect(() => {
     // get the cached data from localStorage when API takes too long to fetch
   }, []);
-  const scroll = useScrollDirection();
-  console.log(scroll);
   return (
     <LayoutAnt
       className={twMerge(
@@ -35,7 +31,7 @@ export default function Layout({ children }: LayoutProps) {
         <meta property="og:title" content="My page title" key="title" />
       </Head>
       <div className={twMerge('sticky top-0 z-50 transition-all duration-500')}>
-        {scroll && <Header isAuthenticated={isAuthenticated} />}
+        <Header isAuthenticated={isAuthenticated} />
       </div>
 
       <LayoutAnt.Content className={twMerge('z-10 h-full w-full')}>

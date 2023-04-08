@@ -14,7 +14,6 @@ function Heading({ data }: HeadingProps) {
   const { t } = useTypeSafeTranslation();
   const router = useRouter;
   const [isShowDescFull, toggleShowDesc, _setShowDesc] = useToggle(false);
-  const { comicId } = router.query;
   return (
     <Row className="text-center gap-y-6 flex-col laptop:flex-row laptop:px-10 laptop:text-left py-10">
       <Col className="" span={24} lg={6}>
@@ -74,7 +73,10 @@ function Heading({ data }: HeadingProps) {
             onClick={() =>
               data.recentRead &&
               router.push(
-                getChapterComicRoute(comicId, data.recentRead.chapterId)
+                getChapterComicRoute(
+                  router.query.comicId,
+                  data.recentRead.chapterId
+                )
               )
             }
           >
@@ -85,7 +87,10 @@ function Heading({ data }: HeadingProps) {
             onClick={() =>
               data.recentRead &&
               router.push(
-                getChapterComicRoute(comicId, data.newestChapter.chapterId)
+                getChapterComicRoute(
+                  router.query.comicId,
+                  data.newestChapter.chapterId
+                )
               )
             }
           >

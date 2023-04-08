@@ -116,6 +116,10 @@
     "internalServerError": "Internal Server Error",
     "requestTimeOut": "Request time out"
   },
+  "profile": {
+    "account": "Tài khoản",
+    "myList": "Yêu thích"
+  },
   "button": {
     "login": "Đăng nhập",
     "logout": "Đăng xuất",

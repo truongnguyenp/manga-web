@@ -5,23 +5,24 @@ import Chapter from '@/components/common/Comic/Chapter';
 interface IChapterListProps {
   data?: any;
 }
-function ChapterList({ data }: IChapterListProps) {
-  const { t } = useTypeSafeTranslation();
-  const StyledTabs = styled(Tabs)`
-    width: 100% !important;
-    .ant-tabs {
-      &-nav {
-        width: 100%;
-        border: 0 solid #e5e7eb;
-        background-color: #242424;
+const StyledTabs = styled(Tabs)`
+  width: 100% !important;
+  .ant-tabs {
+    &-nav {
+      width: 100%;
+      border: 0 solid #e5e7eb;
+      background-color: #242424;
 
-        &-list {
-          margin: 0 auto;
-          padding: 0.5rem 0;
-        }
+      &-list {
+        margin: 0 auto;
+        padding: 0.5rem 0;
       }
     }
-  `;
+  }
+`;
+function ChapterList({ data }: IChapterListProps) {
+  const { t } = useTypeSafeTranslation();
+
   const items: TabsProps['items'] = [
     {
       key: '1',

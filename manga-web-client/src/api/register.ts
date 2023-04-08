@@ -8,5 +8,5 @@ export const registerApi = async ({
 }: any): Promise<AxiosResponse<any>> => {
     let payload = { username, email, password };
 
-    return await request.post<any>(`/Authenticate/user/register/`, payload);
+    return await request.post<any>(`/Authenticate/user/register`, payload);
 };

@@ -7,5 +7,5 @@ export const loginApi = async ({
 }: any): Promise<AxiosResponse<any>> => {
     let payload = { username, password };
 
-    return await request.post<any>(`/Authenticate/login/`, payload);
+    return await request.post<any>(`/Authenticate/login`, payload);
 };

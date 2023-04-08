@@ -93,6 +93,8 @@ export type TranslationKeys =
   | 'error.validFileSize'
   | 'error.internalServerError'
   | 'error.requestTimeOut'
+  | 'profile.account'
+  | 'profile.myList'
   | 'button.login'
   | 'button.logout'
   | 'button.backHome'

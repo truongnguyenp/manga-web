@@ -18,35 +18,33 @@ import {
 import AvatarOutlinedSVG from '@/assets/svgs/avatar-outlined.svg';
 import styled from '@emotion/styled';
 import { twMerge } from 'tailwind-merge';
-import { useLogout } from '../hooks/useLogout';
+import ProfileTabs from '../components/common/Profile';
+import { useRef, useState } from 'react';
 interface HeaderProps {
   isAuthenticated?: boolean;
   hiddenOnScroll?: boolean;
 }
 
+import { useOnClickOutside } from 'usehooks-ts';
+import { PATH_URL } from '@/shared/utils/constants';
+const StyledDiv = styled.div`
+  .ant {
+    &-typography,
+    &-input-group-addon {
+      color: #fff;
+    }
+  }
+`;
+const StyledInput = styled(Input)`
+  .ant-input {
+    background-color: #333;
+  }
+`;
 export default function Header({ isAuthenticated = false }: HeaderProps) {
-  const { push } = useRouter();
+  const router = useRouter;
+  const push = router().push;
   const { t } = useTypeSafeTranslation();
-  const { logout } = useLogout();
 
-  const PROFILE_ITEMS: MenuProps['items'] = [
-    {
-      key: '1',
-      label: (
-        <Link href="/profile" className="text-dark-title">
-          {t('button.profile')}
-        </Link>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <a onClick={logout} className="text-dark-title">
-          {t('button.logout')}
-        </a>
-      ),
-    },
-  ];
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -57,19 +55,9 @@ export default function Header({ isAuthenticated = false }: HeaderProps) {
       ),
     },
   ];
-  const StyledDiv = styled.div`
-    .ant {
-      &-typography,
-      &-input-group-addon {
-        color: #fff;
-      }
-    }
-  `;
-  const StyledInput = styled(Input)`
-    .ant-input {
-      background-color: #333;
-    }
-  `;
+  const profileRef = useRef(null);
+  const [isProfileDropdownOpen, setProfileDropDownOpen] = useState(false);
+  useOnClickOutside(profileRef, () => setProfileDropDownOpen(false));
   return (
     <StyledDiv className={twMerge('w-full bg-black-light text-white')}>
       <div className="mx-auto flex max-w-container items-center justify-between py-2.5 laptop:px-8 flex-wrap">
@@ -129,11 +117,20 @@ export default function Header({ isAuthenticated = false }: HeaderProps) {
             </>
           )}
           {isAuthenticated && (
-            <Dropdown menu={{ items: PROFILE_ITEMS }}>
+            <div
+              className="relative"
+              onMouseOver={() => setProfileDropDownOpen(true)}
+              ref={profileRef}
+              itemRef="profileRef"
+            >
               <div className="rounded-full bg-primary p-2">
                 <AvatarOutlinedSVG className="w-6 h-6" />
               </div>
-            </Dropdown>
+              {isProfileDropdownOpen &&
+                !router().asPath.includes(PATH_URL.profile.index) && (
+                  <ProfileTabs className="absolute top-14 rounded-xl right-8 bg-secondary w-96" />
+                )}
+            </div>
           )}
         </div>
       </div>

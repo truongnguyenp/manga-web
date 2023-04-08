@@ -13,6 +13,7 @@ module.exports = {
         success: "#6FCF97",
         warning: "#EDD68D",
         error: "#EB5757",
+        "secondary": "#292929",
         "black-light": "#1f1f1f",
         'grey-primary': '#F7F8F9',
         'grey-primary-200': '#f0f2f4',

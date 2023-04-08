@@ -33,7 +33,6 @@ export default function App({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
           </Suspense>
         </ConfigProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </I18nextProvider>
   );
