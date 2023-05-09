@@ -1,0 +1,239 @@
+{
+  "appInfo": {
+    "footer": "",
+    "name": "Comic site",
+    "welcomeTitle": "Welcome to Comic site"
+  },
+  "empty": "404 Not Found",
+  "noData": "No data",
+  "sideBar": {
+    "dashboard": "Dashboard",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "Comic web",
+    "description": "For Comic fans",
+    "notHavingAccount": "Chưa có tài khoản?"
+  },
+  "register": {
+    "havingAccount": "Đã có tài khoản?",
+    "description": "For manga fans"
+  },
+  "header": {
+    "categories": "Thể loại",
+    "newest": "Mới nhất",
+    "chart": "Bảng xếp hạng"
+  },
+  "comic": {
+    "chapters": "chương",
+    "readNow": "Đọc ngay",
+    "readContinue": "Đọc tiếp",
+    "latestChapter": "Tập mới nhất",
+    "myList": "Yêu thích",
+    "author": "Tác giả",
+    "rated": "Lứa tuối",
+    "categories": "Thể loại",
+    "description": "Mô tả",
+    "chapter": "chương",
+    "seeFull": "Xem đầy đủ",
+    "seeLess": "Thu gọn",
+    "comment": "Bình luận",
+    "likes": "likes",
+    "views": "views",
+    "title": "Tiêu đề",
+    "anotherTitle": "Tên khác",
+    "numberOfChapters": "Số chương",
+    "status": "Trạng thái xuất bản",
+    "chapterList": "Danh sách chương",
+    "allChapter": "Tất cả chương",
+    "linkOnWeb": "Link trên web",
+    "publishChannel": "Kênh phát hành",
+    "creator": "Người tạo",
+    "editDate": "Ngày chỉnh sửa",
+    "action": "Thao tác",
+    "tags": "Tags",
+    "statusOptions": {
+      "publishing": "Đang phát hành",
+      "finished": "Đã hoàn thành",
+      "onHold": "Tạm ngưng",
+      "canceled": "Đã hủy"
+    }
+  },
+  "chapter": {
+    "noLink": "Chapter này chưa có link, vui lòng liên hệ với tác giả"
+  },
+  "quotes": "Let’s give our customers the best experience !",
+  "country": {
+    "en": "EN"
+  },
+  "placeholder": {
+    "enterEmail": "Enter your email",
+    "enterUsername": "Enter your username",
+    "enterEmailOrPhone": "Enter your email or phone number",
+    "enterPassword": "Enter password",
+    "enterFirstName": "Enter first name",
+    "enterLastName": "Enter last name",
+    "confirmPassword": "Confirm password",
+    "enterOldPassword": "Enter old password",
+    "enterNewPassword": "Enter new password",
+    "enterConfirmPassword": "Confirm new password",
+    "enterCountry": "Enter country",
+    "enterTown": "Enter town",
+    "enterAddress": "Enter address",
+    "enterPhone": "Enter phone number",
+    "enterBankName": "Enter Bank Name",
+    "exampleEmail": "Example@gmail.com",
+    "enterFullName": "Enter full name",
+    "typeMessage": "Type message",
+    "searchMessage": "Search message",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "searchComic": "Tên truyện, comic"
+  },
+  "commonFields": {
+    "email": "Email",
+    "username": "Username",
+    "phone": "Phone number",
+    "password": "Password",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "confirmPassword": "Confirm Password",
+    "ID": "ID",
+    "name": "Tên",
+    "status": "Status",
+    "action": "Hành động",
+    "civility": "Civility",
+    "country": "Country",
+    "town": "Town",
+    "dateOfBirth": "Date of birth",
+    "address": "Address",
+    "fullName": "Full name",
+    "dateAndTime": "Date and time",
+    "seeMore": "See more",
+    "seeLess": "See less",
+    "avatar": "Ảnh đại diện",
+    "datePublished": "Ngày phát hành",
+    "dateModified": "Ngày chỉnh sửa",
+    "index": "STT",
+    "areYouSure": "Bạn có chắc muốn xoá {{name}}"
+  },
+  "message": {
+    "successfully": "Thành công",
+    "loginSuccess": "Đăng nhập thành công",
+    "registerSuccess": "Đăng ký thành công",
+    "addedToList": "Đã thêm vào danh sách yêu thích"
+  },
+  "error": {
+    "pleaseTryAgain": "Please try again later!",
+    "notAvailable": "N/A",
+    "inValidAccLogin": "The account is incorrect.",
+    "notSupportAudio": "Your browser does not support view audio.",
+    "notSupportVideo": "Your browser does not support view audio.",
+    "lostConnection": "The internet connection is lost",
+    "fileTypeIsNotAllowed": "File type is not allowed!",
+    "browserDoesNotSupportVideoTag": "Your browser does not support the video tag.",
+    "validFileSize": "The attachment size has been exceeded! The size limit is up to 50MB only, please check the file size before uploading.",
+    "internalServerError": "Internal Server Error",
+    "requestTimeOut": "Request time out"
+  },
+  "profile": {
+    "account": "Tài khoản",
+    "myList": "Yêu thích"
+  },
+  "button": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "backHome": "Về trang chủ",
+    "register": "Đăng ký",
+    "submit": " Xác nhận",
+    "forgotPassword": "Quên mật khẩu?",
+    "save": "Lưu",
+    "create": "Tạo",
+    "search": "Tên truyện, comic",
+    "clear": "Xoá",
+    "cancel": "Huỷ",
+    "edit": "Sửa",
+    "view": "Xem",
+    "filter": "Lọc",
+    "close": "Đóng",
+    "profile": "Hồ sơ",
+    "editComic": "Chỉnh sửa truyện tranh",
+    "addComic": "Thêm truyện tranh",
+    "editChapter": "Chỉnh sửa chương",
+    "deleteChapter": "Xóa chương",
+    "addChapter": "Thêm chương",
+    "update": "Cập nhật {{name}}"
+  },
+  "validateMessage": {
+    "email": "Email is invalid",
+    "required": "Please enter {{name}}",
+    "invalid": "Invalid {{name}}"
+  },
+  "value": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "all": "All"
+  },
+  "label": {
+    "loading": "Loading",
+    "disabledSelection": "This selection is disabled or removed",
+    "items": "items"
+  },
+  "section": {},
+  "rangePicker": {
+    "closeMonthSelector": "Close Month Selector",
+    "closeYearSelector": "Close Year Selector",
+    "defaultPlaceholder": "Select...",
+    "from": "from",
+    "jan": "January",
+    "feb": "February",
+    "mar": "March",
+    "apr": "April",
+    "may": "May",
+    "jun": "June",
+    "jul": "July",
+    "aug": "August",
+    "sep": "September",
+    "oct": "October",
+    "nov": "November",
+    "dec": "December",
+    "nextMonth": "Next Month",
+    "openMonthSelector": "Open Month Selector",
+    "openYearSelector": "Open Year Selector",
+    "previousMonth": "Previous Month",
+    "to": "to",
+    "weekDays": {
+      "mon": {
+        "fullName": "Monday",
+        "shortName": "M"
+      },
+      "tues": {
+        "fullName": "Tuesday",
+        "shortName": "T"
+      },
+      "wed": {
+        "fullName": "Wednesday",
+        "shortName": "W"
+      },
+      "thur": {
+        "fullName": "Thursday",
+        "shortName": "T"
+      },
+      "fri": {
+        "fullName": "Friday",
+        "shortName": "F"
+      },
+      "sat": {
+        "fullName": "Saturday",
+        "shortName": "S"
+      },
+      "sun": {
+        "fullName": "Sunday",
+        "shortName": "S"
+      }
+    }
+  }
+}

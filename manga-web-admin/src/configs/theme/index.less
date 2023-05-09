@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  overflow: hidden;
+}
+
+
+/* Main colors */
+@primary-color: #E3BD49;
+@secondary-color: #1f2024;
+
+@grey: #23262f;
+
+@grey-primary: #f7f9ff;
+@grey-primary-100: #e9ecf7;
+@grey-primary-200: #b1b7cc;
+@grey-primary-300: #7a7a9d;
+@grey-primary-400: #45445f;
+@grey-primary-500: #070632;
+
+@grey-secondary-500: #3e3a55;
+
+@grey-light-400: #e8eaee;
+
+@pink: #e84167;
+
+@green-dark: #0c6462;
+@green: #6ebbb9;
+@green-light: #e7f4f4;
+
+@info: #5487f5;
+@info-light: #e5edfe;
+
+@success: #00c48c;
+@success-light: #d9f6ee;
+
+@alert: #fba707;
+@alert-light: #fff8e7;
+
+@warning: #ff934b;
+@warning-light: #fff1e9;
+
+@error: #f74360;
+@error-light: #ffe8eb;
+
+@surface-primary: #ffffff;
+@surface-secondary: #f7fafc;
+@surface-light: #d5d5dc;
+@surface-dark: #070632;
+
+/* Other colors*/
+@grey-light: #f5f5f5;
+
+/* Override antd */
+@border-radius-base: 0.5rem;
+@checkbox-border-radius: 3px;
+
+:root {
+  --primary-color: @primary-color;
+  --secondary-color: @secondary-color;
+  --grey: @grey;
+  --grey-primary: @grey-primary;
+  --grey-primary-100: @grey-primary-100;
+  --grey-primary-200: @grey-primary-200;
+  --grey-primary-300: @grey-primary-300;
+  --grey-primary-400: @grey-primary-400;
+  --grey-primary-500: @grey-primary-500;
+  --grey-secondary-500: @grey-secondary-500;
+  --grey-light-400: @grey-light-400;
+
+  --info: @info;
+  --info-light: @info-light;
+  --success: @success;
+  --success-light: @success-light;
+  --alert: @alert;
+  --alert-light: @alert-light;
+  --warning: @warning;
+  --warning-light: @warning-light;
+  --error: @error;
+  --error-light: @error-light;
+  --surface-primary: @surface-primary;
+  --surface-secondary: @surface-secondary;
+  --surface-light: @surface-light;
+  --surface-dark: @surface-dark;
+  --grey-light: @grey-light;
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+svg {
+  vertical-align: initial;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0.4rem;
+  height: 0.5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: @grey-primary-200;
+  border-radius: 0.25rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: @grey-primary-300;
+}
+
+.ant-pagination {
+  &-item {
+    background-color: #fff !important;
+    a {
+      color: #333 !important;
+    }
+    &-active{
+      background-color: @primary-color !important;
+      color: @grey !important;
+    }
+  }
+  &-disabled {
+    opacity: 0.25;
+  }
+  svg path {
+    stroke-width: 15rem;
+    stroke: #fff;
+  }
+}
+@layer components{
+  .card-thumb{
+    @apply absolute object-cover w-full h-full top-0 left-0;
+  }
+  .btn-primary{
+    @apply bg-primary text-white font-bold;
+  }
+  .btn-primary_transparent{
+    @apply text-primary border-primary font-bold;
+  }
+  .btn-accent{
+    @apply bg-white text-dark-title font-bold;
+  }
+}
+
+.ant-upload-list-item .anticon-delete {
+  display: inline-block !important;
+}
