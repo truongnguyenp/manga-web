@@ -1,11 +1,13 @@
-import Comic from '@/shared/components/common/Comic';
 import Layout from '@/shared/layouts/Layout';
+import ComicChapterTable from '@/shared/components/common/Comic';
+import withGuardRoute from '@/shared/hocs/withGuardRoute';
+
 function Index() {
   return (
     <Layout>
-      <Comic />
+      <ComicChapterTable isChapter />
     </Layout>
   );
 }
 
-export default Index;
+export default withGuardRoute(Index, true);

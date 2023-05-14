@@ -54,7 +54,7 @@ export default function ProfileTabs({ className, section }: ProfileProps) {
         >
           <Link
             key={item.key}
-            href={String(item.path)}
+            {...(!!item.path ? { href: String(item.path) } : { href: '/' })}
             onClick={item.onClick}
             className="p-4 hover:text-primary"
           >

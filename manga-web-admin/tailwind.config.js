@@ -42,6 +42,7 @@ module.exports = {
         },
         orange: {
           500: '#F67800',
+          300: 'rgb(255 241 233)'
         },
         sky: {
           100: '#DDF8FB',

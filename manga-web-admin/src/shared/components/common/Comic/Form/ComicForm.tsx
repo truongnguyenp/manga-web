@@ -9,6 +9,8 @@ import {
   Upload,
   Button,
   Select,
+  FormInstance,
+  DatePicker,
 } from 'antd';
 import { t } from 'i18next';
 import DefaultImage from '@/assets/images/defaultImage.png';
@@ -16,19 +18,25 @@ import Image from 'next/image';
 import { ChapterForm } from '@/pages/comic/[comicId]/chapter/[chapterId]';
 import { useState } from 'react';
 import { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
+import { uploadImageApi } from '@/api/upload';
 
 interface ComicFormProps {
   initialValues: ChapterForm;
   onSubmit: () => void;
   isChapter?: boolean;
+  id?: string;
+  form: FormInstance;
 }
 export default function ComicForm({
   initialValues,
   onSubmit,
+  id,
   isChapter = false,
+  form,
 }: ComicFormProps) {
+  console.log('initital values');
+  console.log(initialValues);
   const { t } = useTypeSafeTranslation();
-  const [form] = Form.useForm();
   const getBase64 = (file: RcFile): Promise<string> =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -41,70 +49,69 @@ export default function ComicForm({
   };
   const statusOptions = [
     {
-      label: t('comic.statusOptions.publishing'),
-      value: 'Đang tiến hành',
+      label: t('comic.statusOptions.published'),
+      value: true,
     },
     {
       label: t('comic.statusOptions.publishing'),
-      value: 'Đã hoàn thành',
+      value: false,
     },
   ];
-  const handlePreview = async (file: UploadFile) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj as RcFile);
-    }
+  const [previewAvatar, setPreviewAvatar] = useState({});
 
-    setPreviewAvatar(file.url || (file.preview as string));
+  const handleFileInputChange = async (event) => {
+    const response = await uploadImageApi(event.target.files[0], 1);
+    setPreviewAvatar(response?.data?.imageId);
+    form.setFieldValue('image', response?.data?.imageId);
   };
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-    setPreviewAvatarList(newFileList);
-  const [previewAvatarList, setPreviewAvatarList] = useState<UploadFile[]>([]);
-  const [previewAvatar, setPreviewAvatar] = useState('');
   return (
     <>
       <Typography.Text className="">
         {t('button.addComic')}:{t('button.editComic')}
       </Typography.Text>
       <Form
+        form={form}
+        id={id}
         className="bg-dark-bg"
         initialValues={initialValues}
         onFinish={onFinish}
-        form={form}
       >
         <Row>
           <Col xs={24} xl={16}>
-            <Form.Item label={t('comic.title')} name="title">
+            <Form.Item label={t('comic.title')} name="name">
               <Input className="text-dark-title" />
             </Form.Item>
-            <Form.Item label={t('comic.anotherTitle')} name="anotherTitle">
-              <Input />
-            </Form.Item>
-            <Form.Item label={t('comic.description')} name="description">
-              <Input.TextArea />
-            </Form.Item>
+            {isChapter ? (
+              <Form.Item label={t('comic.chapterNumber')} name="chapterNumber">
+                <Input.TextArea />
+              </Form.Item>
+            ) : (
+              <>
+                <Form.Item label={t('comic.anotherTitle')} name="alias">
+                  <Input />
+                </Form.Item>
+                <Form.Item label={t('comic.description')} name="description">
+                  <Input.TextArea />
+                </Form.Item>
+              </>
+            )}
           </Col>
           <Col className="justify-center flex" xs={24} xl={8}>
-            <Form.Item name="avatar">
-              <Image
-                src={previewAvatar || initialValues.avatar}
-                width={200}
-                height={200}
-                className="aspect-square"
+            <Form.Item name="image" />
+              <img
+                className="h-20 w-20"
+                src={previewAvatar || initialValues?.image}
                 alt={t('commonFields.avatar')}
               />
-              <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                fileList={previewAvatarList}
-                multiple={false}
-                onChange={handleChange}
-                onPreview={handlePreview}
-              >
-                <Button icon={<UploadOutlined />}>Click to Upload</Button>
-              </Upload>
-            </Form.Item>
+            <input type="file" onChange={handleFileInputChange} />
           </Col>
         </Row>
-
+        {/* <Form.Item label={t('comic.numberOfChapters')} name="numberOfChapter">
+        <Input/>
+        </Form.Item>
+        <Form.Item label={t('commonFields.datePublished')} name="datePublished">
+        <Input/>
+        </Form.Item> */}
         {!isChapter && (
           <>
             <Form.Item label={t('comic.author')} name="author">
@@ -117,19 +124,6 @@ export default function ComicForm({
               <Select options={statusOptions} />
             </Form.Item>
             <Form.Item label={t('comic.tags')} name="tags">
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label={t('comic.numberOfChapters')}
-              name="numberOfChapter"
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label={t('commonFields.datePublished')}
-              name="datePublished"
-            >
               <Input />
             </Form.Item>
           </>

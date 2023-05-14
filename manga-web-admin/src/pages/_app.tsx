@@ -14,6 +14,8 @@ import {
   SELECT,
   TABLE,
 } from '@/configs/theme/antd-theme';
+import 'dayjs/locale/zh-cn';
+import locale from 'antd/locale/zh_CN';
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
   const { i18n: i18nState } = useTranslation();
@@ -22,7 +24,6 @@ export default function App({ Component, pageProps }: AppProps) {
     <I18nextProvider i18n={i18n}>
       <QueryClientProvider client={queryClient}>
         <ConfigProvider
-          locale={i18nState.language as any}
           theme={{
             token: {
               colorTextBase: 'rgb(255 255 255)',

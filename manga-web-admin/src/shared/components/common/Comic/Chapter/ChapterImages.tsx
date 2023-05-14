@@ -20,6 +20,10 @@ import Image from 'next/image';
 import { CSS } from '@dnd-kit/utilities';
 import styled from '@emotion/styled';
 import { cloneDeep } from 'lodash';
+import { uploadImageApi } from '@/api/upload';
+import { postChapterApi } from '@/api/chapter';
+import { v4 as uuid } from 'uuid';
+import { DeleteOutlined } from '@ant-design/icons';
 type Transform = {
   x: number;
   y: number;
@@ -27,7 +31,7 @@ type Transform = {
   scaleY: number;
 };
 interface ChapterImagesProps {
-  className: string;
+  className?: string;
   created: boolean;
 }
 interface DraggableUploadListItemProps {
@@ -134,37 +138,7 @@ export default function ChapterImages({
   className,
   created = false,
 }: ChapterImagesProps) {
-  const [fileList, setFileList] = useState<UploadFile[]>([
-    {
-      uid: '-1',
-      name: 'image1.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-2',
-      name: 'image2.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-3',
-      name: 'image3.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-4',
-      name: 'image4.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-5',
-      name: 'image.png',
-      status: 'error',
-    },
-  ]);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const sensor = useSensor(PointerSensor, {
     activationConstraint: { distance: 10 },
@@ -180,47 +154,46 @@ export default function ChapterImages({
     }
   };
 
-  const onChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-  };
-  const onRemove = (file) => {
-    const newFileList = cloneDeep(fileList).filter(
-      (item) => item.uid !== file.uid
-    );
-    onChange({ fileList: newFileList });
-  };
   const { t } = useTypeSafeTranslation();
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    uploadImageApi(fileList, 'v');
+
+    // send formData to API
+  };
+  const handleFileInputChange = async (event) => {
+    const response = await uploadImageApi(event.target.files[0], 1);
+    setFileList([...fileList, response.data]);
+  };
+  function deleteFile(index: number) {
+    setFileList((prevList) => {
+      const newList = [...prevList];
+      newList.splice(index, 1);
+      return newList;
+    });
+  }
   return (
     <div className={twMerge(className)}>
       <div>{t('comic.chapterImages')}</div>
-      {created ? (
-        <div>
-          <DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
+      <form onSubmit={handleFormSubmit}>
+        <input type="file" onChange={handleFileInputChange} />
+      </form>
+
+      {/* <DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
             <SortableContext
-              items={fileList.map((i) => i.uid)}
+              items={fileList}
               strategy={verticalListSortingStrategy}
-            >
-              <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                fileList={fileList}
-                onChange={onChange}
-                className="upload-list-inline"
-                itemRender={(originNode, file) => (
-                  <DraggableUploadListItem
-                    originNode={originNode}
-                    file={file}
-                    onRemove={onRemove}
-                  ></DraggableUploadListItem>
-                )}
-              >
-                <Button icon={<UploadOutlined />}>Click to Upload</Button>
-              </Upload>
-            </SortableContext>
-          </DndContext>
+            ></SortableContext>
+          </DndContext> */}
+      {fileList.map((file, index) => (
+        <div>
+          <Button
+            icon={<DeleteOutlined onClick={() => deleteFile(index)} />}
+          ></Button>
+          <img src={file?.imageId} className="px-24"></img>
         </div>
-      ) : (
-        <span>{t('comic.notCreatedChapter')}</span>
-      )}
+      ))}
     </div>
   );
 }

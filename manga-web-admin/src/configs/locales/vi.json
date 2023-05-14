@@ -12,12 +12,12 @@
   },
   "login": {
     "title": "Comic web",
-    "description": "For Comic fans",
+    "description": "For Admin",
     "notHavingAccount": "Chưa có tài khoản?"
   },
   "register": {
     "havingAccount": "Đã có tài khoản?",
-    "description": "For manga fans"
+    "description": "For admin"
   },
   "header": {
     "categories": "Thể loại",
@@ -54,7 +54,7 @@
     "tags": "Tags",
     "statusOptions": {
       "publishing": "Đang phát hành",
-      "finished": "Đã hoàn thành",
+      "published": "Đã hoàn thành",
       "onHold": "Tạm ngưng",
       "canceled": "Đã hủy"
     }
@@ -100,6 +100,8 @@
     "confirmNewPassword": "Confirm new password",
     "firstName": "First name",
     "lastName": "Last name",
+    "comic": "truyện",
+    "comicList": "Danh sách truyện",
     "confirmPassword": "Confirm Password",
     "ID": "ID",
     "name": "Tên",
@@ -124,7 +126,13 @@
     "successfully": "Thành công",
     "loginSuccess": "Đăng nhập thành công",
     "registerSuccess": "Đăng ký thành công",
-    "addedToList": "Đã thêm vào danh sách yêu thích"
+    "addedToList": "Đã thêm vào danh sách yêu thích",
+    "createComicSuccess": "Tạo truyện thành công",
+    "createChapterSuccess": "Tạo chương thành công",
+    "deleteChapterSuccess": "Xoá chương thành công",
+    "deleteComicSuccess": "Xoá truyện thành công",
+    "updateComicSuccess": "Cập nhật truyện thành công",
+    "updateChapterSuccess": "Cập nhật chương thành công"
   },
   "error": {
     "pleaseTryAgain": "Please try again later!",
@@ -160,6 +168,7 @@
     "filter": "Lọc",
     "close": "Đóng",
     "profile": "Hồ sơ",
+    "deleteComic": "Xóa truyện tranh",
     "editComic": "Chỉnh sửa truyện tranh",
     "addComic": "Thêm truyện tranh",
     "editChapter": "Chỉnh sửa chương",

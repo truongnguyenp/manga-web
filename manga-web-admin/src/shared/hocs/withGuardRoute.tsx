@@ -14,7 +14,7 @@ function withGuardRoute<T extends object>(
         setLoading(true);
         const token = getToken();
         if (!token && isPrivate) {
-          replace('/sign-in');
+          replace('/login');
         }
 
         setLoading(false);
