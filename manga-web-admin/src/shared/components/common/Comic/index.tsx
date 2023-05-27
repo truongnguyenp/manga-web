@@ -70,7 +70,7 @@ function ComicChapterTable({ isChapter = false }: ComicChapterTableProps) {
         index: isChapter ? comic?.chapterNumber : index + 1,
         key: comic.id,
         name: comic.name,
-        avatar: (
+        image: (
           <img
             src={comic?.image || 'https://picsum.photos/150/300'}
             className="aspect-square w-24 h-24"
@@ -126,7 +126,7 @@ function ComicChapterTable({ isChapter = false }: ComicChapterTableProps) {
     },
     {
       title: t('commonFields.avatar'),
-      dataIndex: 'avatar',
+      dataIndex: 'image',
     },
     {
       title: t('commonFields.name'),
@@ -213,7 +213,6 @@ function ComicChapterTable({ isChapter = false }: ComicChapterTableProps) {
         onOk={() => {
           if (!!form) {
             const comicData = form?.getFieldsValue();
-
             if (!!comicData?.dateCreated)
               comicData.dateCreated = getNowFormattedTime();
             if (!!comicData?.dateUpdate)

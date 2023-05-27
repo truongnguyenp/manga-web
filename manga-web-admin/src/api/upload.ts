@@ -40,9 +40,10 @@ request.interceptors.response.use(
     }
   },
 );
-export const uploadImageApi = async (file: File, storage): Promise<AxiosResponse<any>> => {
+export const uploadImageApi = async (file: File, storyId, chapterId): Promise<AxiosResponse<any>> => {
   const formData = new FormData();
   formData.append('file', file);
-  formData.append('storage', storage);
+  formData.append('story_id', storyId);
+  formData.append('chapter_id', chapterId);
   return await request.post<any>(`/images/upload`, formData);
 };

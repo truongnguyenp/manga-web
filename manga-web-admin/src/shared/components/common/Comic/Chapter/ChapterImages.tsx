@@ -6,7 +6,7 @@ import {
   DragEndEvent,
   DndContext,
 } from '@dnd-kit/core';
-import { Upload, UploadFile, UploadProps, Button } from 'antd';
+import { Upload, UploadFile, UploadProps, Button, Form } from 'antd';
 import { useState } from 'react';
 import css from 'styled-jsx/css';
 import { twMerge } from 'tailwind-merge';
@@ -19,7 +19,7 @@ import {
 import Image from 'next/image';
 import { CSS } from '@dnd-kit/utilities';
 import styled from '@emotion/styled';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, forEach } from 'lodash';
 import { uploadImageApi } from '@/api/upload';
 import { postChapterApi } from '@/api/chapter';
 import { v4 as uuid } from 'uuid';
@@ -33,6 +33,8 @@ type Transform = {
 interface ChapterImagesProps {
   className?: string;
   created: boolean;
+  chapterId: string;
+  form: any;
 }
 interface DraggableUploadListItemProps {
   originNode: React.ReactElement<
@@ -137,8 +139,14 @@ const DraggableUploadListItem = ({
 export default function ChapterImages({
   className,
   created = false,
+  chapterId,
+  comicId,
+  chapterImages,
+  form,
 }: ChapterImagesProps) {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>(
+    chapterImages ? [...chapterImages] : []
+  );
 
   const sensor = useSensor(PointerSensor, {
     activationConstraint: { distance: 10 },
@@ -155,16 +163,21 @@ export default function ChapterImages({
   };
 
   const { t } = useTypeSafeTranslation();
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
 
-    uploadImageApi(fileList, 'v');
-
-    // send formData to API
-  };
   const handleFileInputChange = async (event) => {
-    const response = await uploadImageApi(event.target.files[0], 1);
-    setFileList([...fileList, response.data]);
+    const newFiles = Array.from(event.target.files);
+    const uploadedFiles = await Promise.all(
+      newFiles.map(async (file) => {
+        const response = await uploadImageApi(file, comicId, chapterId);
+        return {
+          id: uuid(),
+          imagePath: response.data.imagePath,
+          chapterId: chapterId,
+        };
+      })
+    );
+    form.setFieldValue('images', [...fileList, ...uploadedFiles]);
+    setFileList([...fileList, ...uploadedFiles]);
   };
   function deleteFile(index: number) {
     setFileList((prevList) => {
@@ -176,22 +189,27 @@ export default function ChapterImages({
   return (
     <div className={twMerge(className)}>
       <div>{t('comic.chapterImages')}</div>
-      <form onSubmit={handleFormSubmit}>
-        <input type="file" onChange={handleFileInputChange} />
-      </form>
-
+      <input
+        type="file"
+        onChange={handleFileInputChange}
+        multiple
+        accept="image/*"
+      />
+      <Form form={form}>
+        <Form.Item name="images"></Form.Item>
+      </Form>
       {/* <DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
             <SortableContext
               items={fileList}
               strategy={verticalListSortingStrategy}
             ></SortableContext>
           </DndContext> */}
-      {fileList.map((file, index) => (
+      {fileList?.map((file, index) => (
         <div>
           <Button
             icon={<DeleteOutlined onClick={() => deleteFile(index)} />}
           ></Button>
-          <img src={file?.imageId} className="px-24"></img>
+          <img src={file?.imagePath} className="px-24"></img>
         </div>
       ))}
     </div>

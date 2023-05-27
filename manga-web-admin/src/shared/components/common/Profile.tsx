@@ -32,6 +32,13 @@ export default function ProfileTabs({ className, section }: ProfileProps) {
         : PATH_URL.profile.myList.index,
     },
     {
+      key: 'change-password',
+      label: t('button.changePassword'),
+      path: section
+        ? PATH_URL.profile.myList.original
+        : PATH_URL.profile.myList.index,
+    },
+    {
       key: '2',
       label: t('button.logout'),
       onClick: () => {

@@ -52,6 +52,7 @@
     "editDate": "Ngày chỉnh sửa",
     "action": "Thao tác",
     "tags": "Tags",
+    "chapterNumber": "Chương số",
     "statusOptions": {
       "publishing": "Đang phát hành",
       "published": "Đã hoàn thành",
@@ -152,6 +153,7 @@
     "myList": "Yêu thích"
   },
   "button": {
+    "changePassword": "Đổi mật khẩu",
     "login": "Đăng nhập",
     "logout": "Đăng xuất",
     "backHome": "Về trang chủ",

@@ -34,16 +34,9 @@ export default function ComicForm({
   isChapter = false,
   form,
 }: ComicFormProps) {
-  console.log('initital values');
   console.log(initialValues);
   const { t } = useTypeSafeTranslation();
-  const getBase64 = (file: RcFile): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = (error) => reject(error);
-    });
+
   const onFinish = (values) => {
     onSubmit(values);
   };
@@ -57,12 +50,10 @@ export default function ComicForm({
       value: false,
     },
   ];
-  const [previewAvatar, setPreviewAvatar] = useState({});
 
   const handleFileInputChange = async (event) => {
     const response = await uploadImageApi(event.target.files[0], 1);
-    setPreviewAvatar(response?.data?.imageId);
-    form.setFieldValue('image', response?.data?.imageId);
+    form.setFieldValue('image', response?.data?.imagePath);
   };
   return (
     <>
@@ -98,12 +89,16 @@ export default function ComicForm({
           </Col>
           <Col className="justify-center flex" xs={24} xl={8}>
             <Form.Item name="image" />
-              <img
-                className="h-20 w-20"
-                src={previewAvatar || initialValues?.image}
-                alt={t('commonFields.avatar')}
-              />
-            <input type="file" onChange={handleFileInputChange} />
+            <img
+              className="h-20 w-20"
+              src={form.getFieldValue('image') || initialValues?.image}
+              alt={t('commonFields.avatar')}
+            />
+            <input
+              type="file"
+              onChange={handleFileInputChange}
+              accept="image/*"
+            />
           </Col>
         </Row>
         {/* <Form.Item label={t('comic.numberOfChapters')} name="numberOfChapter">

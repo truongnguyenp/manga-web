@@ -6,7 +6,7 @@ import Layout from '@/shared/layouts/Layout';
 import { Form } from 'antd';
 import { useMutation, useQuery } from 'react-query';
 import { useRouter } from 'next/router';
-import { showSuccess } from '@/configs/configTools/notification';
+import { showError, showSuccess } from '@/configs/configTools/notification';
 import {
   getChapterApi,
   postChapterApi,
@@ -37,14 +37,14 @@ function Index() {
     getChapterApi(chapterId)
   );
   const [form] = Form.useForm();
-  const created = !!data?.data?.id;
+  const created = !!data?.data;
 
   const { mutate: postChapter } = useMutation(postChapterApi, {
     onSuccess: () => {
       showSuccess(t('message.createChapterSuccess'));
       router.push(getComicRoute(comicId as string));
     },
-    onError: (error) => {},
+    onError: (error) => showError(error),
   });
 
   const { mutate: updateChapter } = useMutation(
@@ -53,7 +53,7 @@ function Index() {
       onSuccess: () => {
         showSuccess(t('message.updateChapterSuccess'));
       },
-      onError: (error) => {},
+      onError: (error) => showError(error),
     }
   );
   const { mutate: deleteChapter } = useMutation(deleteChapterApi, {
@@ -61,7 +61,7 @@ function Index() {
       showSuccess(t('message.deleteChapterSuccess'));
       router.push(getComicRoute(comicId as string));
     },
-    onError: (error) => {},
+    onError: (error) => showError(error),
   });
   return (
     <Layout>
@@ -71,7 +71,14 @@ function Index() {
         {...(created ? { initialValues: data.data } : {})}
         onSubmit={() => console.log('v')}
       />
-      <ChapterImages created className="bg-dark-bg" />
+      <ChapterImages
+        chapterImages={data?.data?.chapterImagesList}
+        form={form}
+        created
+        className="bg-dark-bg"
+        chapterId={chapterId}
+        comicId={comicId}
+      />
       <ComicMenu
         onMenuDelete={() => {
           deleteChapter(chapterId);
@@ -82,24 +89,39 @@ function Index() {
           updateChapter({
             id: chapterId,
             chapterData: {
-              ...form.getFieldsValue(),
-              storyId: comicId,
-              id: chapterId,
-              lastModified: getNowFormattedTime(),
-              chapterNumber: 0,
-              cost: 0,
-              views: 0,
-              created: '2023-05-14T00:36:06.678Z',
+              chapter: {
+                id: chapterId,
+                ...form.getFieldsValue(),
+                storyId: comicId,
+              },
+              chapterImagesList: form  
+                .getFieldValue('images')?
+                .map((image: any, index) => ({
+                  ...image,
+                  order: index,
+                })),
             },
           });
         }}
         created={created}
         onSubmit={() => {
-          postChapter({ ...form.getFieldsValue(), storyId: comicId });
+          const chapterImages = form
+            .getFieldValue('images')
+            ?.map((image: any, index: string) => ({
+              ...image,
+              order: index,
+            }));
+          postChapter({
+            chapter: {
+              id: chapterId,
+              ...form.getFieldsValue(),
+              storyId: comicId,
+            },
+            chapterImagesList: chapterImages,
+          });
         }}
       />
     </Layout>
   );
 }
 export default withGuardRoute(Index, true);
-
