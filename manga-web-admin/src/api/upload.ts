@@ -30,7 +30,7 @@ request.interceptors.response.use(
   error => {
     switch (error.code) {
       case ErrorCode.ERR_BAD_REQUEST:
-        throw new Error(String(i18n.t('error.inValidAccLogin')));
+        throw new Error(String(i18n.t('error.inva')));
       case ErrorCode.ERR_NETWORK:
         throw new Error(String(i18n.t('error.lostConnection')));
       case ErrorCode.ECONNABORTED:

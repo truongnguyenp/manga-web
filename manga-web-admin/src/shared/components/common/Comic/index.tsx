@@ -12,7 +12,11 @@ import {
   Typography,
   Upload,
 } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  UploadOutlined,
+} from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { Table } from 'antd';
 import { ReactNode, use, useEffect, useState } from 'react';
@@ -28,10 +32,21 @@ import { showError, showSuccess } from '@/configs/configTools/notification';
 import { RegisterFormValues } from '@/pages/register';
 import { replace } from 'lodash';
 import { useMutation, useQuery } from 'react-query';
-import { ComicData, getComicChaptersByIdApi, postComicApi } from '@/api/comic';
-import { on } from 'events';
+import {
+  ComicData,
+  getComicChaptersByIdApi,
+  postComicApi,
+  updateComicApi,
+} from '@/api/comic';
 import { v4 as uuid } from 'uuid';
-import { getNewestComicsApi, deleteComicApi } from '@/api/comic';
+import {
+  getNewestComicsApi,
+  deleteComicApi,
+  getCategoriesApi,
+} from '@/api/comic';
+import { Popover } from 'antd';
+import styled from '@emotion/styled';
+
 import { deleteChapterApi } from '@/api/chapter';
 interface DataType {
   key: React.Key;
@@ -43,6 +58,11 @@ interface DataType {
 interface ComicChapterTableProps {
   isChapter?: boolean;
 }
+const StyledPopover = styled(Popover)`
+  .ant-popover-inner-content {
+    color: #333;
+  }
+`;
 function ComicChapterTable({ isChapter = false }: ComicChapterTableProps) {
   const { t } = useTypeSafeTranslation();
   const router = useRouter;
@@ -52,48 +72,137 @@ function ComicChapterTable({ isChapter = false }: ComicChapterTableProps) {
       ? getComicChaptersByIdApi(router.query.comicId as string)
       : getNewestComicsApi();
   });
+
+  const [chapterToDelete, setChapterToDelete] = useState<string | null>('');
+  const [deleteChapterModal, setShowDeleteChapterModal] = useState(false);
+  const [addComicModal, toggleAddComicModal] = useToggle();
+  const [updateComicModal, toggleUpdateComicModal] = useToggle();
+  const [updateComicInitialValues, setUpdateComicInitialValues] = useState();
   const { mutate: deleteChapter } = useMutation(
     isChapter ? deleteChapterApi : deleteComicApi,
     {
       onSuccess: () => {
+        showSuccess(
+          isChapter
+            ? t('message.deleteChapterSuccess')
+            : t('message.deleteComicSuccess')
+        );
         refetch();
       },
       onError: (error) => {
+        showError(error);
         // Do something on error, e.g. show an error message or log the error
       },
     }
   );
+  const [form] = Form.useForm();
+  const [updateComicForm] = Form.useForm();
+
+  useEffect(() => {
+    if (updateComicForm) {
+      const values = updateComicForm.getFieldsValue();
+      setUpdateComicInitialValues(values);
+    }
+  }, [updateComicForm]);
   useEffect(() => {
     const fetchedData = isChapter ? comics?.data?.chapters : comics?.data;
     if (Array.isArray(fetchedData)) {
-      const newData = fetchedData?.map((comic, index) => ({
-        index: isChapter ? comic?.chapterNumber : index + 1,
-        key: comic.id,
-        name: comic.name,
+      const stories = fetchedData?.map((item, index) => ({
+        index: index + 1,
+        key: item?.story?.id,
+        name: item?.story?.name,
+        author: item?.author,
+        category: item?.category,
         image: (
           <img
-            src={comic?.image || 'https://picsum.photos/150/300'}
+            src={
+              isChapter
+                ? item?.image
+                : item?.story?.image || 'https://picsum.photos/150/300'
+            }
             className="aspect-square w-24 h-24"
             alt={t('commonFields.avatar')}
           />
         ),
-        dateModified: getFormattedTime(comic?.story?.lastModified),
+        dateModified: getFormattedTime(item?.lastModified),
         deleteChapter: (
-          <Button
-            className="btn-accent"
-            onClick={() => {
-              setShowDeleteChapterModal(true);
-              setChapterToDelete({
-                id: comic.id,
-                name: comic.name,
-              });
-            }}
-          >
-            {isChapter ? t('button.deleteChapter') : t('button.deleteComic')}
-          </Button>
+          <>
+            <Button
+              onClick={() => {
+                toggleUpdateComicModal();
+                updateComicForm.setFieldsValue({
+                  ...item?.story,
+                  image: item?.story?.image,
+                  categoryId: item.category?.id,
+                  authorId: item.author?.id,
+                });
+                console.log(updateComicForm.getFieldsValue());
+              }}
+            >
+              <EditOutlined />
+            </Button>
+            <Button
+              onClick={() => {
+                setShowDeleteChapterModal(true);
+                setChapterToDelete({
+                  id: isChapter ? item?.id : item?.story?.id,
+                  name: isChapter ? item.name : item?.story?.name,
+                });
+              }}
+            >
+              <DeleteOutlined />
+            </Button>
+          </>
         ),
       }));
-      setTableData(newData ?? []);
+      const chapters = fetchedData?.map((item, index) => ({
+        index: isChapter ? item?.chapterNumber : index + 1,
+        key: isChapter ? item.id : item?.story?.id,
+        name: isChapter ? item.name : item?.story?.name,
+        image: (
+          <img
+            src={
+              isChapter
+                ? item?.image
+                : item?.story?.image || 'https://picsum.photos/150/300'
+            }
+            className="aspect-square w-24 h-24"
+            alt={t('commonFields.avatar')}
+          />
+        ),
+        dateModified: getFormattedTime(item?.lastModified),
+        deleteChapter: (
+          <>
+            <Button
+              onClick={() => {
+                toggleUpdateComicModal();
+                updateComicForm.setFieldsValue({
+                  ...item?.story,
+                  image: item?.story?.image,
+                  categoryId: item.category?.id,
+                  authorId: item.author?.id,
+                });
+                console.log(updateComicForm.getFieldsValue());
+              }}
+            >
+              <EditOutlined />
+            </Button>
+            <Button
+              onClick={() => {
+                setShowDeleteChapterModal(true);
+                setChapterToDelete({
+                  id: isChapter ? item?.id : item?.story?.id,
+                  name: isChapter ? item.name : item?.story?.name,
+                });
+              }}
+            >
+              <DeleteOutlined />
+            </Button>
+          </>
+        ),
+      }));
+      if (isChapter) setTableData(chapters ?? []);
+      else setTableData(stories ?? []);
     }
     // do something with newData
   }, [comics]);
@@ -108,18 +217,24 @@ function ComicChapterTable({ isChapter = false }: ComicChapterTableProps) {
     },
   });
 
-  const onCreateNewComic = async (comicData: ComicData) => {
-    await postComic(comicData);
-  };
-  const [chapterToDelete, setChapterToDelete] = useState<string | null>('');
-  const [deleteChapterModal, setShowDeleteChapterModal] = useState(false);
-  const [addComicModal, toggleAddComicModal] = useToggle();
+  const { mutate: updateComic } = useMutation(
+    ({ id, comicData }) => updateComicApi(id, comicData),
+    {
+      onError: (error) => {
+        showError(error);
+      },
+      onSuccess: (data) => {
+        refetch();
+        showSuccess(t('message.updateComicSuccess'));
+      },
+    }
+  );
   const handleDeleteChapter = () => {
     deleteChapter(chapterToDelete.id);
     setChapterToDelete(null);
     setShowDeleteChapterModal(false);
   };
-  const columns: ColumnsType<DataType> = [
+  const chapterColumns: ColumnsType<DataType> = [
     {
       title: t('commonFields.index'),
       dataIndex: 'index',
@@ -146,7 +261,49 @@ function ComicChapterTable({ isChapter = false }: ComicChapterTableProps) {
       dataIndex: 'deleteChapter',
     },
   ];
-
+  const comicColumns: ColumnsType<DataType> = [
+    {
+      title: t('commonFields.index'),
+      dataIndex: 'index',
+    },
+    {
+      title: t('commonFields.avatar'),
+      dataIndex: 'image',
+    },
+    {
+      title: t('commonFields.name'),
+      dataIndex: 'name',
+    },
+    {
+      title: t('comic.author'),
+      dataIndex: ['author'],
+      render: (author) => (
+        <StyledPopover
+          content={`${author?.name} - ${author?.national}`}
+          className="bg-dark-bg text-dark-bg"
+        >
+          <span className="text-white">{author?.name}</span>
+        </StyledPopover>
+      ),
+    },
+    {
+      title: t('comic.categories'),
+      dataIndex: ['category', 'name'],
+    },
+    {
+      title: t('commonFields.dateModified'),
+      dataIndex: 'dateModified',
+      sorter: {
+        compare: (a, b) =>
+          Date.parse(a.dateModified) - Date.parse(b.dateModified),
+        multiple: 2,
+      },
+    },
+    {
+      title: t('commonFields.action'),
+      dataIndex: 'deleteChapter',
+    },
+  ];
   const handleRowClick = (e, record: DataType) => {
     if (e.target.closest('button')) {
       return;
@@ -154,12 +311,8 @@ function ComicChapterTable({ isChapter = false }: ComicChapterTableProps) {
 
     if (isChapter)
       router.push(getChapterComicRoute(router.query.comicId, record.key));
-    else router.push(getComicRoute(record.key));
+    else router.push(getComicRoute(record?.key));
   };
-  const handleAddComic = (values) => {
-    onCreateNewComic(values);
-  };
-  const [form] = Form.useForm();
 
   return (
     <div>
@@ -184,7 +337,7 @@ function ComicChapterTable({ isChapter = false }: ComicChapterTableProps) {
         </div>
 
         <Table
-          columns={columns}
+          columns={isChapter ? chapterColumns : comicColumns}
           dataSource={tableData}
           onRow={(record) => ({
             onClick: (e) => handleRowClick(e, record),
@@ -212,12 +365,18 @@ function ComicChapterTable({ isChapter = false }: ComicChapterTableProps) {
         open={addComicModal}
         onOk={() => {
           if (!!form) {
-            const comicData = form?.getFieldsValue();
+            const comicData = form.getFieldsValue();
             if (!!comicData?.dateCreated)
               comicData.dateCreated = getNowFormattedTime();
             if (!!comicData?.dateUpdate)
-              comicData.dateUpdate = getNowFormattedTime();
-            handleAddComic({ ...comicData, id: uuid() });
+              comicData.dateUpdated = getNowFormattedTime();
+
+            console.log({
+              ...comicData,
+
+              id: form.getFieldValue('id'),
+            });
+            postComic({ id: form.getFieldValue('id'), ...comicData });
             toggleAddComicModal();
           } else {
             showError('noform');
@@ -228,6 +387,37 @@ function ComicChapterTable({ isChapter = false }: ComicChapterTableProps) {
         onCancel={toggleAddComicModal}
       >
         <ComicForm form={form} id="comicForm" />
+      </StyledModal>
+
+      <StyledModal
+        title={t('button.editComic')}
+        className="bg-dark-bg"
+        open={updateComicModal}
+        onOk={() => {
+          if (!!form) {
+            const comicData = updateComicForm?.getFieldsValue();
+            if (!!comicData?.dateCreated)
+              comicData.dateCreated = getNowFormattedTime();
+            if (!!comicData?.dateUpdate)
+              comicData.dateUpdated = getNowFormattedTime();
+            updateComic({
+              id: updateComicForm.getFieldValue('id'),
+              comicData: {
+                ...comicData,
+                id: updateComicForm.getFieldValue('id'),
+              },
+            });
+
+            toggleUpdateComicModal();
+          } else {
+            showError('noform');
+            return;
+          }
+        }}
+        closable
+        onCancel={toggleUpdateComicModal}
+      >
+        <ComicForm form={updateComicForm} id="updateComicForm" />
       </StyledModal>
       <div className="h-28"></div>
     </div>

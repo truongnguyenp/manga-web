@@ -10,9 +10,13 @@ export const TOKEN: Partial<AliasToken> = {
 
 export const BUTTON: Partial<OverrideToken['Button']> = {
   controlHeight: 48,
+  colorBorderSecondary: '#0d8e8b',
+  colorPrimary: '#0d8e8b',
+  colorBorder: '#0d8e8b',
 };
 export const INPUT: Partial<OverrideToken['Input']> = {
   controlHeight: 48,
+  colorBgBase: '#fff',
   colorText: '#333',
 };
 export const IMAGE: Partial<OverrideToken['Image']> = {

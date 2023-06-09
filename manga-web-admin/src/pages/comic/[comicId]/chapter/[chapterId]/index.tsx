@@ -34,7 +34,9 @@ function Index() {
   // };
   const { chapterId, comicId } = router.query;
   const { data } = useQuery(['chapter', chapterId], () =>
-    getChapterApi(chapterId)
+    getChapterApi(chapterId), {onSuccess: (data) => {
+      form.setFieldsValue({...data.data.chapter});
+    }}
   );
   const [form] = Form.useForm();
   const created = !!data?.data;
@@ -68,7 +70,6 @@ function Index() {
       <ComicForm
         form={form}
         isChapter
-        {...(created ? { initialValues: data.data } : {})}
         onSubmit={() => console.log('v')}
       />
       <ChapterImages
@@ -99,7 +100,7 @@ function Index() {
                 .map((image: any, index) => ({
                   ...image,
                   order: index,
-                })),
+                })) || data?.data?.chapterImagesList,
             },
           });
         }}

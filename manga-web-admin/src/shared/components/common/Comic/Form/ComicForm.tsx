@@ -11,6 +11,7 @@ import {
   Select,
   FormInstance,
   DatePicker,
+  Table,
 } from 'antd';
 import { t } from 'i18next';
 import DefaultImage from '@/assets/images/defaultImage.png';
@@ -19,10 +20,13 @@ import { ChapterForm } from '@/pages/comic/[comicId]/chapter/[chapterId]';
 import { useState } from 'react';
 import { RcFile, UploadFile, UploadProps } from 'antd/es/upload';
 import { uploadImageApi } from '@/api/upload';
-
+import { AutoComplete } from 'antd';
+import { getAuthorsApi, getCategoriesApi } from '@/api/comic';
+import { useQuery } from 'react-query';
+import useToggle from '@/shared/hooks/useToggle';
 interface ComicFormProps {
-  initialValues: ChapterForm;
-  onSubmit: () => void;
+  initialValues?: ChapterForm;
+  onSubmit?: () => void;
   isChapter?: boolean;
   id?: string;
   form: FormInstance;
@@ -52,9 +56,24 @@ export default function ComicForm({
   ];
 
   const handleFileInputChange = async (event) => {
+    if (!event.target.files[0]) return;
     const response = await uploadImageApi(event.target.files[0], 1);
     form.setFieldValue('image', response?.data?.imagePath);
   };
+  const { data: authorData } = useQuery(['getAuthors'], () => getAuthorsApi());
+  const { data: categoryData } = useQuery(['getCategories'], () =>
+    getCategoriesApi()
+  );
+  const [selectedAuthor, setSelectedAuthor] = useState(null);
+
+  const [isShowAddAuthor, toggleShowAddAuthor] = useToggle(false);
+  const initialCategory = categoryData?.data.find(
+    (category) => category.id === form.getFieldValue('categoryId')
+  );
+  const initialAuthor = authorData?.data.find(
+    (author) => author.id === form.getFieldValue('authorId')
+  );
+  console.log(initialAuthor);
   return (
     <>
       <Typography.Text className="">
@@ -73,14 +92,19 @@ export default function ComicForm({
               <Input className="text-dark-title" />
             </Form.Item>
             {isChapter ? (
-              <Form.Item label={t('comic.chapterNumber')} name="chapterNumber">
-                <Input.TextArea />
-              </Form.Item>
+              <>
+                <Form.Item
+                  label={t('comic.chapterNumber')}
+                  name="chapterNumber"
+                >
+                  <Input.TextArea />
+                </Form.Item>
+                {/* <Form.Item label={t('comic.anotherTitle')} name="alias">
+                  <Input />
+                </Form.Item> */}
+              </>
             ) : (
               <>
-                <Form.Item label={t('comic.anotherTitle')} name="alias">
-                  <Input />
-                </Form.Item>
                 <Form.Item label={t('comic.description')} name="description">
                   <Input.TextArea />
                 </Form.Item>
@@ -91,7 +115,7 @@ export default function ComicForm({
             <Form.Item name="image" />
             <img
               className="h-20 w-20"
-              src={form.getFieldValue('image') || initialValues?.image}
+              src={form.getFieldValue('image')}
               alt={t('commonFields.avatar')}
             />
             <input
@@ -109,18 +133,76 @@ export default function ComicForm({
         </Form.Item> */}
         {!isChapter && (
           <>
-            <Form.Item label={t('comic.author')} name="author">
-              <Input />
+            <Form.Item label={t('comic.author')}>
+              <AutoComplete
+                style={{ width: 200 }}
+                options={authorData?.data.map((author) => ({
+                  label: author?.name, // Displayed label
+                  id: author?.id, // Unique value for the item
+                  value: author?.name, // Actual value
+                }))}
+                defaultValue={{
+                  label: initialAuthor?.name, // Displayed label
+                  id: initialAuthor?.id, // Unique value for the item
+                  value: initialAuthor?.name, // Actual value
+                }}
+                onSelect={(value, option) => {
+                  form.setFieldValue('authorId', option.id);
+                  console.log(form.getFieldsValue());
+                }} // Update the selected author
+                notFoundContent={
+                  <Button className="btn-primary_transparent">
+                    Add author
+                  </Button>
+                }
+                placeholder="try to type `b`"
+                filterOption={(inputValue, option) =>
+                  option?.label
+                    .toUpperCase()
+                    .indexOf(inputValue.toUpperCase()) !== -1
+                }
+              />
             </Form.Item>
-            <Form.Item label={t('comic.categories')} name="categories">
-              <Input />
+            <Form.Item label={t('comic.categories')}>
+              <AutoComplete
+                style={{ width: 200 }}
+                options={categoryData?.data?.map((category) => ({
+                  label: category?.name,
+                  id: category?.id,
+                  value: category?.name,
+                }))}
+                defaultValue={{
+                  label: initialCategory?.name, // Displayed label
+                  id: initialCategory?.id, // Unique value for the item
+                  value: initialCategory?.name, // Actual value
+                }}
+                onSelect={(value, option) =>
+                  form.setFieldValue('categoryId', option.id)
+                }
+                placeholder="try to type `b`"
+                filterOption={(inputValue, option) =>
+                  option?.label
+                    .toUpperCase()
+                    .indexOf(inputValue.toUpperCase()) !== -1
+                }
+              />
             </Form.Item>
-            <Form.Item label={t('comic.status')} name="status">
+            {!isChapter && (
+              <>
+                <Form.Item name="authorId" className="hidden"></Form.Item>
+                <Form.Item
+                  name="categoryId"
+                  className="hidden"
+                ></Form.Item>{' '}
+              </>
+            )}
+
+            {/* <Form.Item label={t('comic.status')} name="status">
               <Select options={statusOptions} />
-            </Form.Item>
-            <Form.Item label={t('comic.tags')} name="tags">
+            </Form.Item> */}
+            {/* <Form.Item label={t('comic.tags')} name="tags">
               <Input />
-            </Form.Item>
+            </Form.Item> */}
           </>
         )}
       </Form>

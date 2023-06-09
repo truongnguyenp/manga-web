@@ -103,6 +103,9 @@
     "lastName": "Last name",
     "comic": "truyện",
     "comicList": "Danh sách truyện",
+    "categoryList": "Danh sách thể loại",
+    "authorList": "Danh sách tác giả",
+    "chapterList": "Danh sách chương",
     "confirmPassword": "Confirm Password",
     "ID": "ID",
     "name": "Tên",
@@ -110,6 +113,7 @@
     "action": "Hành động",
     "civility": "Civility",
     "country": "Country",
+    "national": "Quốc gia",
     "town": "Town",
     "dateOfBirth": "Date of birth",
     "address": "Address",
@@ -138,6 +142,7 @@
   "error": {
     "pleaseTryAgain": "Please try again later!",
     "notAvailable": "N/A",
+    "inValidField": "The field is incorrect.",
     "inValidAccLogin": "The account is incorrect.",
     "notSupportAudio": "Your browser does not support view audio.",
     "notSupportVideo": "Your browser does not support view audio.",
@@ -176,7 +181,12 @@
     "editChapter": "Chỉnh sửa chương",
     "deleteChapter": "Xóa chương",
     "addChapter": "Thêm chương",
-    "update": "Cập nhật {{name}}"
+    "update": "Cập nhật {{name}}",
+    "createCategory": "Thêm thể loại",
+    "deleteCategory": "Xóa thể loại",
+    "editCategory": "Chỉnh sửa thể loại",
+    "createAuthor": "Thêm tác giả",
+    "deleteAuthor": "Xóa tác giả"
   },
   "validateMessage": {
     "email": "Email is invalid",
