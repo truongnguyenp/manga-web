@@ -76,66 +76,6 @@ const StyledDiv = styled.div<StyledDivProps>`
   }}
 `;
 
-const DraggableUploadListItem = ({
-  originNode,
-  file,
-  onRemove,
-}: DraggableUploadListItemProps) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({
-    id: file.uid,
-  });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    cursor: 'move',
-    display: 'flex',
-    justifyContent: 'center',
-    flexFlow: 'column-reverse',
-    selfAlign: 'center',
-  };
-
-  return (
-    <StyledDiv
-      ref={setNodeRef}
-      style={style}
-      isDragging={isDragging}
-      {...attributes}
-      {...listeners}
-    >
-      {/* hide error tooltip when dragging */}
-      {file.status === 'error' && isDragging
-        ? originNode.props.children
-        : originNode}
-
-      <DeleteFilled
-        className="text-red-600"
-        style={{ fontSize: '1.5rem' }}
-        onClick={onRemove}
-      />
-      <Image
-        width={200}
-        height={200}
-        src={file.url}
-        alt={file.name}
-        style={{ maxWidth: '100%', maxHeight: '100%' }}
-        onError={() => {
-          URL.revokeObjectURL(file.preview);
-        }}
-        onLoad={() => {
-          URL.revokeObjectURL(file.preview);
-        }}
-      />
-    </StyledDiv>
-  );
-};
 export default function ChapterImages({
   className,
   created = false,

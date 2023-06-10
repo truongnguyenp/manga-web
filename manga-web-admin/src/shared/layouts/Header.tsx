@@ -36,7 +36,8 @@ const StyledDiv = styled.div`
   }
 `;
 const StyledInput = styled(Input)`
-  .ant-input {
+  input {
+    color: white;
     background-color: #333;
   }
 `;
@@ -55,6 +56,15 @@ export default function Header({ isAuthenticated = false }: HeaderProps) {
       ),
     },
   ];
+  const handleSearch = (value: string) => {
+    try {
+      // Navigate to the search route
+      push(`/search/${encodeURIComponent(value)}/1/10`);
+    } catch (error) {
+      // Handle any errors here
+    }
+  };
+
   const profileRef = useRef(null);
   const [isProfileDropdownOpen, setProfileDropDownOpen] = useState(false);
   useOnClickOutside(profileRef, () => setProfileDropDownOpen(false));
@@ -99,9 +109,10 @@ export default function Header({ isAuthenticated = false }: HeaderProps) {
         </Dropdown> */}
         <div className="flex items-center space-x-2">
           <StyledInput
-            className="bg-dark-bg border-black"
+            className=" border-black"
             placeholder={t('placeholder.searchComic')}
             addonBefore={<SearchOutlined />}
+            onPressEnter={(e) => handleSearch(e.target.value)}
           />
           {!isAuthenticated && (
             <>

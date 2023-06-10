@@ -122,3 +122,12 @@ export const updateAuthorApi = async (id: string, data: AuthorData): Promise<Axi
 export const deleteAuthorApi = async (id: string): Promise<AxiosResponse<any>> => {
   return await request.delete<any>(`/author/delete/${id}`);
 }
+export const searchStoriesApi = async (searchString: string, page = 1, nStories = 10): Promise<AxiosResponse<any>> => {
+  try {
+    const response = await request.get(`/story/search/${encodeURIComponent(searchString)}/${page}/${nStories}`);
+    return response;
+  } catch (error) {
+    // Handle any errors here
+    throw error;
+  }
+};
