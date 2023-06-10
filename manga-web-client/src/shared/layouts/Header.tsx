@@ -38,6 +38,7 @@ const StyledDiv = styled.div`
 const StyledInput = styled(Input)`
   .ant-input {
     background-color: #333;
+    color: #fff !important;
   }
 `;
 export default function Header({ isAuthenticated = false }: HeaderProps) {

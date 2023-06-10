@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Layout from '@/shared/layouts/Layout';
 import Slider from '@/shared/components/home/Slider';
 import Section from '@/shared/components/common/Section';
-import { Row } from 'antd';
+import { Row, Typography } from 'antd';
 import { useQuery } from 'react-query';
 import { twMerge } from 'tailwind-merge';
 import Card from '@/shared/components/common/Card';
@@ -22,6 +22,9 @@ export default function SearchPage() {
   return (
     <Layout>
       <Head key="head">a</Head>
+      <Typography.Title level={2} className="text-center">
+        {`Tìm kiếm truyện: ${searchString}`}
+      </Typography.Title>
       <Row
         className={twMerge(
           'flex gap-x-1 mx-2 laptop:gap-x-4 laptop:mx-auto w-full justify-center laptop:flex-nowrap'
