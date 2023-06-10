@@ -77,7 +77,9 @@ export default function ComicForm({
   return (
     <>
       <Typography.Text className="">
-        {t('button.addComic')}:{t('button.editComic')}
+        {!(initialAuthor || initialCategory)
+          ? t('button.addComic')
+          : t('button.editComic')}
       </Typography.Text>
       <Form
         form={form}

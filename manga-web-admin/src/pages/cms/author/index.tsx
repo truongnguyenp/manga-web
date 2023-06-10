@@ -202,7 +202,7 @@ function Index() {
             authorData: {
               id: selectedAuthor,
               description: 'string',
-              ...form.getFieldsValue(),
+              ...updateAuthorForm.getFieldsValue(),
             },
           });
         }}

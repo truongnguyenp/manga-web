@@ -30,6 +30,12 @@
       "@/hooks/*": ["./src/shared/hooks/*"]
     }
   },
-  "include": ["next-env.d.ts", "index.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "index.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/pages/[comicId]/[chapterId]"
+  ],
   "exclude": ["node_modules"]
 }
