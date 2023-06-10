@@ -2,7 +2,6 @@ import useTypeSafeTranslation from '@/hooks/useTypeSafeTranslation';
 import useToggle from '@/shared/hooks/useToggle';
 import { EyeFilled, LikeFilled, SwitcherFilled } from '@ant-design/icons';
 import { Button, Col, Row, Typography } from 'antd';
-import Image from 'next/image';
 import { getChapterComicRoute, truncateText } from '@/utils/tool';
 import { Chapter, ComicHeading } from '@/shared/utils/type';
 import useRouter from 'next/router';
@@ -11,15 +10,16 @@ interface HeadingProps {
   data: ComicHeading & { newestChapter: Chapter } & { recentRead: Chapter };
 }
 function Heading({ data }: HeadingProps) {
-  const { t } = useTypeSafeTranslation();
+  console.log(data);
   const router = useRouter;
+  const { t } = useTypeSafeTranslation();
   const [isShowDescFull, toggleShowDesc, _setShowDesc] = useToggle(false);
   return (
     <Row className="text-center gap-y-6 flex-col laptop:flex-row laptop:px-10 laptop:text-left py-10">
       <Col className="" span={24} lg={6}>
-        <Image
-          src={data.image}
-          alt={data.title}
+        <img
+          src={data?.story?.image}
+          alt={data?.story?.name}
           width="420"
           height="630"
           className="mx-auto"
@@ -27,7 +27,7 @@ function Heading({ data }: HeadingProps) {
       </Col>
       <Col className="gap-y-3 flex flex-col laptop:ml-6" span={24} lg={17}>
         <Typography.Text className="text-3xl laptop:text-6xl font-bold">
-          {data.title}
+          {data?.story?.name}
         </Typography.Text>
         <Row className="justify-center laptop:justify-start">
           <span className="flex-col flex text-center p-6 gap-y-2">
@@ -37,7 +37,7 @@ function Heading({ data }: HeadingProps) {
             />
             <span className="flex flex-row gap-x-1">
               <Typography.Text className="font-bold text-primary">
-                {data.viewerCount}
+                {data?.story?.views}
               </Typography.Text>
               <Typography.Text>{t('comic.views')}</Typography.Text>
             </span>
@@ -49,7 +49,7 @@ function Heading({ data }: HeadingProps) {
             />
             <span className="flex flex-row gap-x-1">
               <Typography.Text className="font-bold text-primary">
-                {data.likesCount}
+                {data?.story?.likes}
               </Typography.Text>
               <Typography.Text>{t('comic.likes')}</Typography.Text>
             </span>
@@ -61,7 +61,7 @@ function Heading({ data }: HeadingProps) {
             />
             <span className="flex flex-row gap-x-1">
               <Typography.Text className="font-bold text-primary">
-                {data.numberOfChapter}
+                {data?.numberOfChapter}
               </Typography.Text>
               <Typography.Text>{t('comic.chapters')}</Typography.Text>
             </span>
@@ -72,25 +72,21 @@ function Heading({ data }: HeadingProps) {
             className="btn-primary"
             onClick={() =>
               data.recentRead &&
+              typeof window !== 'undefined' &&
               router.push(
-                getChapterComicRoute(
-                  router.query.comicId,
-                  data.recentRead.chapterId
-                )
+                getChapterComicRoute(router.query.comicId, data.recentRead)
               )
             }
           >
-            {data.recentRead ? t('comic.readContinue') : t('comic.readNow')}
+            {data?.recentRead ? t('comic.readContinue') : t('comic.readNow')}
           </Button>
           <Button
             className="btn-primary_transparent"
             onClick={() =>
-              data.recentRead &&
+              data?.recentRead &&
+              typeof window !== 'undefined' &&
               router.push(
-                getChapterComicRoute(
-                  router.query.comicId,
-                  data.newestChapter.chapterId
-                )
+                getChapterComicRoute(router.query.comicId, data.newestChapter)
               )
             }
           >
@@ -106,21 +102,21 @@ function Heading({ data }: HeadingProps) {
         <div className="flex-col flex mx-8 gap-y-3 laptop:mx-0">
           <Row className="gap-x-1">
             <Typography.Text>{`${t('comic.author')}:`}</Typography.Text>
-            <Typography.Text>{data.author}</Typography.Text>
+            <Typography.Text>{data?.author?.name}</Typography.Text>
           </Row>
           <Row className="gap-x-1">
             <Typography.Text>{`${t('comic.genres')}:`}</Typography.Text>
-            <Typography.Text>{data.genres}</Typography.Text>
+            <Typography.Text>{data?.category?.name}</Typography.Text>
           </Row>
-          <Row className="gap-x-1">
+          {/* <Row className="gap-x-1">
             <Typography.Text>{`${t('comic.rated')}:`}</Typography.Text>
-            <Typography.Text>{data.rated}</Typography.Text>
-          </Row>
+            <Typography.Text>{data?.rated}</Typography.Text>
+          </Row> */}
           <Row className="gap-x-1 whitespace-normal text-left">
             <Typography.Text className="">{`${t('comic.description')}: ${
               isShowDescFull
-                ? data.description
-                : truncateText(data.description, 600)
+                ? data?.story?.description
+                : truncateText(data?.story?.description, 600)
             }`}</Typography.Text>
             <span
               onClick={() => {

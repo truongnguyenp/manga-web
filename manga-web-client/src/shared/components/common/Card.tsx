@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { getComicRoute } from '@/shared/utils/tool';
 import { useRouter } from 'next/router';
 import { twMerge } from 'tailwind-merge';
 interface CardProps {
@@ -18,21 +18,20 @@ export default function Card({
   return (
     <div
       onClick={() => {
-        push(data.path);
+        push(getComicRoute(data?.story.id));
       }}
       className={twMerge(
         'cursor-pointer laptop:w-auto text-center font-medium text-2xl',
         className
       )}
     >
-      <Image
-        src={data.image}
-        alt={data.title}
+      <img
+        src={data?.story?.image}
+        alt={data?.story?.name}
         object-fit="cover"
-        width={imgWidth}
-        height={imgHeight}
+        className="h-72 w-72"
       />
-      <h3 className="text-ellipsis">{data.title}</h3>
+      <h3 className="text-ellipsis">{data?.story?.name}</h3>
     </div>
   );
 }

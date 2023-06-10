@@ -55,6 +55,15 @@ export default function Header({ isAuthenticated = false }: HeaderProps) {
       ),
     },
   ];
+  const handleSearch = (value: string) => {
+    try {
+      // Navigate to the search route
+      push(`/search/${encodeURIComponent(value)}/1/10`);
+    } catch (error) {
+      // Handle any errors here
+    }
+  };
+
   const profileRef = useRef(null);
   const [isProfileDropdownOpen, setProfileDropDownOpen] = useState(false);
   useOnClickOutside(profileRef, () => setProfileDropDownOpen(false));
@@ -102,6 +111,7 @@ export default function Header({ isAuthenticated = false }: HeaderProps) {
             className="bg-dark-bg border-black"
             placeholder={t('placeholder.searchComic')}
             addonBefore={<SearchOutlined />}
+            onPressEnter={(e) => handleSearch(e.target.value)}
           />
           {!isAuthenticated && (
             <>
