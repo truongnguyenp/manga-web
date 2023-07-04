@@ -32,13 +32,13 @@ export default function Section({ data }: SectionProps) {
       <Row className="w-full flex-wrap">
         <Divider type="vertical" className="bg-primary w-2 h-16" />
         <Title className="text-white text-6xl font-medium">Mới cập nhật</Title>
-        <Pagination
+        {/* <Pagination
           className="sm:ml-auto flex-nowrap flex basis-full sm:basis-auto justify-center items-center"
           current={currentPage}
           pageSize={PAGINATION_SIZE}
           total={QUANTITY}
           onChange={(page) => setCurrentPage(page)}
-        />
+        /> */}
       </Row>
       <Row
         className={twMerge(

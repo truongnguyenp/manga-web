@@ -106,6 +106,7 @@
     "categoryList": "Danh sách thể loại",
     "authorList": "Danh sách tác giả",
     "chapterList": "Danh sách chương",
+
     "confirmPassword": "Confirm Password",
     "ID": "ID",
     "name": "Tên",
@@ -128,6 +129,10 @@
     "areYouSure": "Bạn có chắc muốn xoá {{name}}"
   },
   "message": {
+    "createCategorySuccess": "Tạo thể loại thành công",
+    "createAuthorSuccess": "Tạo tác giả thành công",
+    "deleteCategorySuccess": "Xoá thể loại thành công",
+    "deleteAuthorSuccess": "Xoá tác giả thành công",
     "successfully": "Thành công",
     "loginSuccess": "Đăng nhập thành công",
     "registerSuccess": "Đăng ký thành công",

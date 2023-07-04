@@ -36,9 +36,9 @@ const StyledDiv = styled.div`
   }
 `;
 const StyledInput = styled(Input)`
-  .ant-input {
+  input {
+    color: white;
     background-color: #333;
-    color: #fff !important;
   }
 `;
 export default function Header({ isAuthenticated = false }: HeaderProps) {
@@ -70,12 +70,12 @@ export default function Header({ isAuthenticated = false }: HeaderProps) {
   useOnClickOutside(profileRef, () => setProfileDropDownOpen(false));
   return (
     <StyledDiv className={twMerge('w-full bg-black-light text-white')}>
-      <div className="mx-auto flex max-w-container items-center justify-between py-2.5 laptop:px-8 flex-wrap">
+      <div className="flex max-w-container items-center py-2.5 laptop:px-8 flex-wrap justify-between">
         <Link className="pl-4 font-medium text-primary text-4xl" href="/">
           {t('appInfo.name')}
         </Link>
         <Link href={'/'}></Link>
-        <Row className="flex-1 justify-around hidden laptop:flex">
+        {/* <Row className="flex-1 justify-around hidden laptop:flex">
           <Dropdown menu={{ items }} className="flex gap-x-1">
             <a onClick={(e) => e.preventDefault()}>
               <Typography>{t('header.categories')}</Typography>
@@ -106,17 +106,17 @@ export default function Header({ isAuthenticated = false }: HeaderProps) {
               Menu
             </Space>
           </a>
-        </Dropdown>
-        <div className="flex items-center space-x-2 mx-auto">
+        </Dropdown> */}
+        <div className="flex items-center space-x-2">
           <StyledInput
-            className="bg-dark-bg border-black"
+            className=" border-black"
             placeholder={t('placeholder.searchComic')}
             addonBefore={<SearchOutlined />}
             onPressEnter={(e) => handleSearch(e.target.value)}
           />
           {!isAuthenticated && (
             <>
-              <Button className="text-primary" onClick={() => push('/login')}>
+              <Button className="btn-primary" onClick={() => push('/login')}>
                 {t('button.login')}
               </Button>
               <Button
